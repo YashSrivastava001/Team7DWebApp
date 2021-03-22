@@ -19,5 +19,6 @@ from designmytee import views
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('', views.about, name='about'),
     path('admin/', admin.site.urls),
 ]

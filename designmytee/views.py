@@ -7,4 +7,7 @@ def index(request):
     response = render(request, 'designmytee/index.html')
     return response
 
+def about(request):
+    response = render(request, 'designmytee/about.html')
+    return response
     
