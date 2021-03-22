@@ -1,10 +1,41 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Homepage</title>
-</head>
-<body>
-    <h1>This is my home page</h1>
+{% extends 'designmytee/base.html' %}
+{% load staticfiles %} <!-- New line -->
+{% block title_block %}
+    Homepage
+{% endblock %}
 
-</body>
-</html>
+{% block body_block %}
+	<div class="coverImage">
+		<img src="{% static 'images/homepage-cover.jpeg' %}" class="coverImg img-fluid rounded mx-auto d-block" alt="Cover">
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<header class="text-center col-12">
+				<h1> Our competitions</h1>
+			</header>
+			<hr class="shadow">
+			
+		</div>
+		
+	</div>
+
+	<div class="container-1">
+		<div class="card" style="width: 18rem;">
+  			<img src="{% static 'images/com-ex.png' %}" class="card-img-top" alt="COMPETITION-1">
+  			<div class="card-body">
+    			<h5 class="card-title">Competition 1</h5>
+    			<p class="card-text">Design a tshirt about blah balhj lkfnv .</p>
+    			<a href="#" class="btn btn-primary">Participate</a>
+  			</div>
+		</div>
+	</div>
+
+	
+	
+{% endblock %}
+
+
+
+
+
