@@ -13,7 +13,7 @@ class SubmissionAdmin(admin.ModelAdmin):
     list_display = ('participant', 'votes')
     
 class CompetitionAdmin(admin.ModelAdmin):
-    list_display = ('competitionID', 'startDate', 'endDate')
+    list_display = ('title', 'competitionID', 'startDate', 'endDate')
 
 admin.site.register(Designer, DesignerAdmin)
 admin.site.register(Host, HostAdmin)

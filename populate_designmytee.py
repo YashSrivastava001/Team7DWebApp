@@ -41,17 +41,19 @@ def populate():
          'competitionsCreated': 24}
         ]
     
-    python_Submissions = [
-        {'votes': 12,
-         'participant': python_Designers[3],
-         'designImage': "submission_images/test.jpg"}
-        ]
-    
     python_Competitions = [
         {'competitionID': "81039102",
+         'title': "Animals",
          'startDate': '2020-03-23',
          'endDate': '2020-05-22'
             }
+        ]
+    
+    python_Submissions = [
+        {'votes': 12,
+         'participant': python_Designers[3],
+         'designImage': "submission_images/test.jpg",
+         'competition': python_Competitions[0]}
         ]
     
     for Des in python_Designers:
@@ -60,14 +62,13 @@ def populate():
     for Hos in python_Hosts:
         add_Host(Hos.get('name'), Hos.get('userID'), Hos.get('password'), Hos.get('email'), Hos.get('competitionsCreated'))
         
-    for Sub in python_Submissions:
-        add_Submission(Sub.get('votes'), Sub.get('participant'), Sub.get('designImage'))
-        
     for Comp in python_Competitions:
-        add_Competition(Comp.get('competitionID'), Comp.get('startDate'), Comp.get('endDate'))
+        add_Competition(Comp.get('competitionID'), Comp.get('title'), Comp.get('startDate'), Comp.get('endDate'))
+        
+    for Sub in python_Submissions:
+        add_Submission(Sub.get('votes'), Sub.get('participant'), Sub.get('designImage'), Sub.get('competition'))
         
         
-    
     
 def add_Designer(name, userID, password, email, participations=0):
     d = Designer.objects.get_or_create(name=name, userID=userID, password=password, email=email)[0]
@@ -78,16 +79,18 @@ def add_Host(name, userID, password, email, competitionsCreated=0):
     h = Host.objects.get_or_create(name=name, userID=userID, password=password, email=email)[0]
     h.competitionsCreated = competitionsCreated
     return h
+
+def add_Competition(competitionID, title, startDate, endDate):
+    c = Competition.objects.get_or_create(competitionID=competitionID, title=title, startDate=startDate, endDate=endDate)[0]
+    return c
         
-def add_Submission(votes, participant, designImage):
+def add_Submission(votes, participant, designImage, competition):
+    c = Competition.objects.filter(competitionID=competition.get('competitionID'))[0]
     d = Designer.objects.filter(name=participant.get('name'))[0]
-    s = Submission.objects.get_or_create(participant=d, designImage=designImage)[0]
+    s = Submission.objects.get_or_create(participant=d, designImage=designImage, competition=c)[0]
     s.votes=votes
     return s
-        
-def add_Competition(competitionID, startDate, endDate):
-    c = Competition.objects.get_or_create(competitionID=competitionID, startDate=startDate, endDate=endDate)[0]
-    return c
+
     
 if __name__ == '__main__':
     print('Starting ratemytee population script...')

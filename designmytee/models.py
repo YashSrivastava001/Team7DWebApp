@@ -22,14 +22,17 @@ class Designer(User):
 class Host(User):
     competitionsCreated = models.IntegerField(default=0)
     
+class Competition(models.Model):
+    COMPETITION_MAX_LENGTH = 8
+    COMPETITION_MAX_TITLE_LENGTH = 128
+    title = models.CharField(max_length=COMPETITION_MAX_TITLE_LENGTH, default=None)
+    competitionID = models.CharField(max_length=COMPETITION_MAX_LENGTH)
+    startDate = models.DateField()
+    endDate = models.DateField()
+    
 class Submission(models.Model):
     designImage = models.ImageField(upload_to='Submission_images/')
     votes = models.IntegerField(default=0)
     winner = models.BooleanField(default=False)
     participant = models.OneToOneField(Designer, on_delete=models.CASCADE)
-    
-class Competition(models.Model):
-    COMPETITION_MAX_LENGTH = 8
-    competitionID = models.CharField(max_length=COMPETITION_MAX_LENGTH)
-    startDate = models.DateField()
-    endDate = models.DateField()
+    competition = models.ForeignKey(Competition, on_delete=models.CASCADE, default=None)
