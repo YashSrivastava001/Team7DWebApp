@@ -43,17 +43,50 @@ def populate():
     
     python_Competitions = [
         {'competitionID': "81039102",
+         'competitionDescription': 'Submit your favourite animal picture design!',
          'title': "Animals",
          'startDate': '2020-03-23',
          'endDate': '2020-05-22'
+            },
+        {'competitionID': "01928482",
+         'competitionDescription': 'Submit your favourite TV show design!',
+         'title': "TV shows",
+         'startDate': '2020-04-23',
+         'endDate': '2020-04-30'
+            },
+        {'competitionID': "62738492",
+         'competitionDescription': 'Submit your favourite video game design!',
+         'title': "video games",
+         'startDate': '2021-04-23',
+         'endDate': '2021-04-30'
             }
         ]
     
     python_Submissions = [
         {'votes': 12,
          'participant': python_Designers[3],
+         'submissionDescription': 'Its a tiger, imagine a cat but like REALLY big',
          'designImage': "submission_images/test.jpg",
-         'competition': python_Competitions[0]}
+         'competition': python_Competitions[0]
+         },
+        {'votes': 22,
+         'participant': python_Designers[1],
+         'submissionDescription': 'puppy!',
+         'designImage': "submission_images/dog.jpg",
+         'competition': python_Competitions[0]
+         },
+        {'votes': 1,
+         'participant': python_Designers[2],
+         'submissionDescription': 'Is this google',
+         'designImage': "submission_images/me.jpg",
+         'competition': python_Competitions[2]
+         },
+        {'votes': 72,
+         'participant': python_Designers[0],
+         'submissionDescription': 'Idk its sitting funny what else do you want',
+         'designImage': "submission_images/dog2.png",
+         'competition': python_Competitions[0]
+         }
         ]
     
     for Des in python_Designers:
@@ -63,10 +96,10 @@ def populate():
         add_Host(Hos.get('name'), Hos.get('userID'), Hos.get('password'), Hos.get('email'), Hos.get('competitionsCreated'))
         
     for Comp in python_Competitions:
-        add_Competition(Comp.get('competitionID'), Comp.get('title'), Comp.get('startDate'), Comp.get('endDate'))
+        add_Competition(Comp.get('competitionID'), Comp.get('competitionDescription'), Comp.get('title'), Comp.get('startDate'), Comp.get('endDate'))
         
     for Sub in python_Submissions:
-        add_Submission(Sub.get('votes'), Sub.get('participant'), Sub.get('designImage'), Sub.get('competition'))
+        add_Submission(Sub.get('votes'), Sub.get('participant'), Sub.get('submissionDescription'), Sub.get('designImage'), Sub.get('competition'))
         
         
     
@@ -80,14 +113,14 @@ def add_Host(name, userID, password, email, competitionsCreated=0):
     h.competitionsCreated = competitionsCreated
     return h
 
-def add_Competition(competitionID, title, startDate, endDate):
-    c = Competition.objects.get_or_create(competitionID=competitionID, title=title, startDate=startDate, endDate=endDate)[0]
+def add_Competition(competitionID, competitionDescription, title, startDate, endDate):
+    c = Competition.objects.get_or_create(competitionID=competitionID, competitionDescription=competitionDescription, title=title, startDate=startDate, endDate=endDate)[0]
     return c
         
-def add_Submission(votes, participant, designImage, competition):
+def add_Submission(votes, participant, submissionDescription, designImage, competition):
     c = Competition.objects.filter(competitionID=competition.get('competitionID'))[0]
     d = Designer.objects.filter(name=participant.get('name'))[0]
-    s = Submission.objects.get_or_create(participant=d, designImage=designImage, competition=c)[0]
+    s = Submission.objects.get_or_create(votes=votes, participant=d, submissionDescription=submissionDescription, designImage=designImage, competition=c)[0]
     s.votes=votes
     return s
 

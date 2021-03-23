@@ -23,15 +23,19 @@ class Host(User):
     competitionsCreated = models.IntegerField(default=0)
     
 class Competition(models.Model):
+    DESCRIPTION_MAX_LENGTH = 200
     COMPETITION_MAX_LENGTH = 8
     COMPETITION_MAX_TITLE_LENGTH = 128
     title = models.CharField(max_length=COMPETITION_MAX_TITLE_LENGTH, default=None)
+    competitionDescription = models.CharField(max_length=DESCRIPTION_MAX_LENGTH, default=None)
     competitionID = models.CharField(max_length=COMPETITION_MAX_LENGTH)
     startDate = models.DateField()
     endDate = models.DateField()
     
 class Submission(models.Model):
+    DESCRIPTION_MAX_LENGTH = 200
     designImage = models.ImageField(upload_to='Submission_images/')
+    submissionDescription = models.CharField(max_length=DESCRIPTION_MAX_LENGTH, default=None)
     votes = models.IntegerField(default=0)
     winner = models.BooleanField(default=False)
     participant = models.OneToOneField(Designer, on_delete=models.CASCADE)

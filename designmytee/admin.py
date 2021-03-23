@@ -10,7 +10,7 @@ class HostAdmin(admin.ModelAdmin):
     list_display = ('name', 'userID')
     
 class SubmissionAdmin(admin.ModelAdmin):
-    list_display = ('participant', 'votes')
+    list_display = ('participant','submissionDescription', 'votes')
     
 class CompetitionAdmin(admin.ModelAdmin):
     list_display = ('title', 'competitionID', 'startDate', 'endDate')
