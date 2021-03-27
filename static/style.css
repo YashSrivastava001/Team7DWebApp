@@ -1,140 +1,149 @@
+{% load staticfiles %}
+/* nav bar*/
 
-@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css");
-
-*{
-  padding: 0;
-  margin: 0;
-  text-decoration: none;
-  list-style: none;
-  box-sizing: border-box;
-}
-
-body{
-  font-family: 'Alice'
-
-}
-
-nav{
-  background: #f6f5f5;
-  height: 80px;
-  width: 100%
-}
-
-.checkbtn{
-  float: right;
-  line-height: 80px;
-  font-size: 30px;
-  margin-right: 40px;
-  cursor: pointer;
-  display: none;
-}
-
-#check{
-  display: none;
-}
-
-label.logo{
-  color: #276678;
+.navbar-brand{
   font-size: 35px;
-  line-height: 80px;
-  padding: 0 100px;
-  font-weight: bold;
+  font-family: 'Alice', serif;
+  margin-left: 10px;
+
 }
 
-nav ul{
+.nav-item{
+  font-size: 20px;
+
+}
+
+.bg-custom{
+  background-color: #28527a;
+}
+
+.nav-right{
   float: right;
-  margin-right: 20px;
 }
 
-nav ul li{
-  display: inline-block;
-  line-height: 80px;
-  margin: 0px 5px;
+.nav-pad{
+  margin-right: 15px;
 }
 
-nav ul li a{
-  text-decoration: none;
-  color: #1687a7;
-  font-size: 17px;
-  
-  border-radius: 3px;
-  padding: 7px 13px;
-  text-transform: uppercase;
-
+.nav-link{
+  margin-right: 30px;
 }
 
-a:hover{
-  color: white;
-  background: black; 
-  transition: .5s;
-}
-
-.coverImg{
-  width: 75%;
-  height: auto;
-}
-
-.container{
-  align-content: center;
-  align-items: center;
-  align-self: center;
-}
-
-
-
-
-hr.new5 {
-  border: 10px solid green;
-  border-radius: 5px;
-}
-
-@media (max-width: 952px){
-
-  label.logo{
+@media (max-width: 858px){
+  .navbar-brand{
     font-size: 25px;
-    padding-left: 50px;
   }
 
-  nav ul li a{
-    font-size: 16px;
+}
+
+/* Body */
+
+.cover-img{
+  display: none;
+}
+
+/* carousel */
+.carousel-item{
+
+  height: 90vh;
+  
+  background: no-repeat scroll center scroll;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+
+.carousel-item::before{
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: #000;
+  opacity: 0.5;
+}
+
+h1.carousel-text{
+  font-size: 100px;
+}
+
+h2.carousel-text{
+  font-size: 60px;
+}
+
+.parallax{
+  background: url("https://miro.medium.com/max/2264/1*RoXcbaF9lIqwpMjiXg54Vw.png") repeat fixed 100%;
+}
+
+@media(max-width: 858px){
+  .parallax{
+    background: url("https://webguruz.in/wp-content/uploads/2020/12/image-1-3.png") no-repeat fixed 100%;
   }
+  .subhead{
+    padding-top: 30%;
+    padding-bottom: 30%;
+  }
+}
+
+.subhead{
+  color: white;
+  padding-top: 20%;
+  padding-bottom: 20%;
+}
+
+.sub-text{
+  width: 75%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+
+
+@media (max-width: 858px){
+  .cover-carousel{
+    display: none;
+  }
+  .cover-img{
+    display: block;
+  }
+  
+}
+
+h1.compHeading{
+  font-size: 8vw;
+}
+
+
+
+.heading{
+  background-color:#ffb4b4;
+  padding-top: 5%;
+  padding-bottom: 5%;
 
 }
 
 @media (max-width: 858px){
-  .checkbtn{
-    display: block;
+  .heading{
+    padding-top: 10%;
+    padding-bottom: 10%;
+    border-width: 2px;
+    border-color: black;
   }
-  ul{
-    position: fixed;
-    width: 100%;
-    height: 100vh;
-    background: #383e56;
-    top: 80px;
-    left: -100%;
-    text-align: center;
-    transition: all .5s;
-  }
-
-  nav ul li{
-    display: block;
-    margin: 50px 0;
-    line-height: 30px;
-  }
-
-  nav ul li a{
-    color: white;
-    font-size: 20px;
-  }
-
-  #check:checked ~ ul{
-    left: 0;
-  }
-
-
-  a:hover{
-    background: none;
-    color: black;
-  }
-  
 }
+
+
+/* Cards */
+
+.card-grid{
+  background-color: #ffdcdc;
+}
+
+.card{
+  margin: 20px 20px 20px 20px;
+}
+
+
+
+
+

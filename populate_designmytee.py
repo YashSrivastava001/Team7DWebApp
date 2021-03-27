@@ -126,7 +126,7 @@ def add_Submission(votes, participant, submissionDescription, designImage, compe
 
     
 if __name__ == '__main__':
-    print('Starting ratemytee population script...')
+    print('Starting designmytee population script...')
     populate()
     print('Population successful!')
         
