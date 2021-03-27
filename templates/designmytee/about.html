@@ -1,0 +1,40 @@
+{% extends 'designmytee/base.html' %}
+{% load staticfiles %} 
+{% block title_block %}
+   About
+{% endblock %}
+{% block body_block %}
+<p>
+
+			<header class="text-center col-12">
+				<div class="row">
+				<div class="container">
+				<h1> About Us</h1>
+			</header>
+			<hr class="shadow">
+					<div class="coverImage">
+		<img src="{% static 'images/cover-about.gif' %}" class="coverImg img-fluid rounded mx-auto d-block" alt="Cover">
+			<h3> What is it all about? </h3>
+			The Design My Tee Competition is a freestyle design competition open to both concept stage and realized works designed by professional and young fashion designers, tailors, stylists, fashion design companies and other business in this industry worldwide.
+			<br>
+			<br>  
+			<br>  
+			<img src="{% static 'images/Register-Now.jpg' %}" class="coverImg img-fluid rounded mx-auto d-block" alt="Cover">
+			<h3> How to participate in a competition? </h3>
+			This gives you chance to create your own design on a t-shirt and compete with other designers in a variety of competitions. ​The competitions are held and uploaded regularly and last a certain number of days.For more details on these competitions please refer to the competitions tab. ​
+			<br>
+			Designers who want to be a part of the competition can upload their t-shirt design within this window, after which submissions are closed. ​All logged-in users can vote on the designs and the design with the highest number of votes wins. ​All the people who voted are automatically added into a lucky draw and someone is randomly selected to be sent a copy of the printed t-shirt with the winning competition design. ​
+			<hr class="shadow">
+		</div>
+		<h3> Quick-Help Links</h3>
+		<div>
+<a href="#" class="btn btn-primary">How to Submit</a> 
+<a href="#" class="btn btn-primary">Rules</a>
+</div>
+		
+		</p>	
+		</div>
+		
+	</div>
+	
+{% endblock %}
