@@ -4,7 +4,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE',
 
 import django
 django.setup()
-from designmytee.models import Host, Designer, Submission, Competition
+from designmytee.models import Host, Designer, Submission, Competition, Support_Request
 
 def populate():
     
@@ -144,6 +144,27 @@ def populate():
          }
         ]
     
+    Feedback_Submissions = [
+        {'firstName': 'Tim',
+         'lastName': 'Higgins',
+         'supportID': '92817482',
+         'contactNumber': '07919421023',
+         'contactEmail': 'LookingForDog@petmail.com',
+         'suggestionsOrFeedback' : 'I enjoy using this site, but the site needs better moderation, somebody stole my work!'},
+        {'firstName': 'Sam',
+         'lastName': 'Chandler',
+         'supportID': '91724482',
+         'contactNumber': '07911921023',
+         'contactEmail': 'LookingForBeaver@petmail.com',
+         'suggestionsOrFeedback' : 'It would be nice to have a community spotlight section, maybe with a submission of the week by highest votes?'},
+        {'firstName': 'Sam',
+         'lastName': 'John',
+         'supportID': '12232322',
+         'contactNumber': '07817261023',
+         'contactEmail': 'LookingForMouse@testmail.com',
+         'suggestionsOrFeedback' : 'I would like to recieve more clarity on whats happening to my data'},
+        ]
+    
     for Des in python_Designers:
         add_Designer(Des.get('name'), Des.get('userID'), Des.get('password'), Des.get('email'), Des.get('partcipations'), Des.get('wins'))
         
@@ -155,7 +176,9 @@ def populate():
         
     for Sub in python_Submissions:
         add_Submission(Sub.get('votes'), Sub.get('participant'), Sub.get('submissionDescription'), Sub.get('designImage'), Sub.get('competition'))
-        
+    
+    for Fed in Feedback_Submissions:
+        add_Feedback(Fed.get('firstName'), Fed.get('lastName'), Fed.get('supportID'), Fed.get('contactNumber'), Fed.get('contactEmail'), Fed.get('suggestionsOrFeedback'))
         
     
 def add_Designer(name, userID, password, email, participations=0, wins=0):
@@ -178,6 +201,9 @@ def add_Submission(votes, participant, submissionDescription, designImage, compe
     s.votes=votes
     return s
 
+def add_Feedback(firstName, lastName, supportID, contactNumber, contactEmail, suggestionsOrFeedback):
+    f = Support_Request.objects.get_or_create(firstName=firstName, lastName=lastName, supportID=supportID, contactNumber=contactNumber, contactEmail=contactEmail, suggestionsOrFeedback=suggestionsOrFeedback)
+    return f
     
 if __name__ == '__main__':
     print('Starting designmytee population script...')
