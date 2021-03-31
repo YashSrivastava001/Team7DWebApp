@@ -95,6 +95,10 @@ DATABASES = {
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+LOGIN_REDIRECT_URL = '/designmytee/myprofile/'
+
+ACCOUNT_EMAIL_REQUIRED = True
+
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
