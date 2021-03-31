@@ -140,7 +140,14 @@ h1.compHeading{
 }
 
 .card{
+  width: 18rem;
+  height: 30rem;
   margin: 20px 20px 20px 20px;
+}
+
+.card-img-top{
+  width: 16rem;
+  height: 15rem;
 }
 
 

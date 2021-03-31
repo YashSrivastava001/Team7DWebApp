@@ -1,10 +1,15 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from designmytee.models import Competition
+from django.template import RequestContext
 
 # Create your views here.
 
 def home(request):
-    return render(request, 'designmytee/home.html')
+    competitions_list = Competition.objects.all()
+    context_dict = {}
+    context_dict['competitions'] = competitions_list
+    return render(request, 'designmytee/home.html', context = context_dict)
 
 def about(request):
      return render(request, 'designmytee/about.html')
