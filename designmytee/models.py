@@ -5,10 +5,11 @@ from django.db import models
 class User(models.Model):
     NAME_AND_PASSWORD_MAX_LENGTH = 128
     USER_MAX_LENGTH = 8
+    EMAIL_MAX_LENGTH = 200
     name = models.CharField(max_length=NAME_AND_PASSWORD_MAX_LENGTH)
     userID = models.CharField(max_length=USER_MAX_LENGTH, unique=True)
     password = models.CharField(max_length=NAME_AND_PASSWORD_MAX_LENGTH, unique=True)
-    email = models.EmailField(unique=True)
+    email = models.EmailField(max_length=EMAIL_MAX_LENGTH, unique=True)
     picture = models.ImageField(upload_to='profile_images/', blank=True) # optional field
     
     class Meta:
@@ -28,7 +29,7 @@ class Competition(models.Model):
     COMPETITION_MAX_TITLE_LENGTH = 128
     title = models.CharField(max_length=COMPETITION_MAX_TITLE_LENGTH, default=None)
     competitionDescription = models.CharField(max_length=DESCRIPTION_MAX_LENGTH, default=None)
-    competitionID = models.CharField(max_length=COMPETITION_MAX_LENGTH)
+    competitionID = models.CharField(max_length=COMPETITION_MAX_LENGTH, unique=True)
     competitionImage = models.ImageField(upload_to='competition_images/', blank=True) # optional field
     startDate = models.DateField()
     endDate = models.DateField()
@@ -41,3 +42,16 @@ class Submission(models.Model):
     winner = models.BooleanField(default=False) 
     participant = models.OneToOneField(Designer, on_delete=models.CASCADE)
     competition = models.ForeignKey(Competition, on_delete=models.CASCADE, default=None) 
+
+class Support_Request(models.Model):
+    ID_MAX_LENGTH = 8
+    NAME_MAX_LENGTH = 128
+    EMAIL_MAX_LENGTH = 200
+    SUGGESTIONS_FEEDBACK_MAX_LENGTH = 500
+    supportID = models.CharField(max_length=ID_MAX_LENGTH, unique=True)
+    firstName = models.CharField(max_length=NAME_MAX_LENGTH)
+    lastName = models.CharField(max_length=NAME_MAX_LENGTH)
+    contactNumber = models.CharField(max_length=11)
+    contactEmail = models.CharField(max_length=EMAIL_MAX_LENGTH)
+    suggestionsOrFeedback = models.CharField(max_length=SUGGESTIONS_FEEDBACK_MAX_LENGTH)
+    
