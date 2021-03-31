@@ -34,6 +34,9 @@ class Competition(models.Model):
     startDate = models.DateField()
     endDate = models.DateField()
     
+    def start_date_before_end_date(self):
+        return(self.startDate < self.endDate)
+    
 class Submission(models.Model):
     DESCRIPTION_MAX_LENGTH = 200
     designImage = models.ImageField(upload_to='Submission_images/')
