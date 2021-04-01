@@ -1,0 +1,5 @@
+Competition images: competition_*competitionID*
+
+Profile images: profile_*userID*
+
+Submission images: submission_*competitionID*_*userID*
