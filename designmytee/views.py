@@ -17,8 +17,8 @@ def about(request):
 def help(request):
     return render(request, 'designmytee/help.html')
 
-def signin(request):
-     return render(request, 'designmytee/signin.html')
+def myprofile(request):
+     return render(request, 'designmytee/myprofile.html')
 
 def results(request):
     return render(request, 'designmytee/results.html')
