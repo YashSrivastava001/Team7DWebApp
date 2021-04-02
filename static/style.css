@@ -98,6 +98,10 @@ h2.carousel-text{
   margin-left: auto;
 }
 
+.sub-text-comp{
+  padding-top: 20px;
+}
+
 
 
 @media (max-width: 858px){
@@ -151,6 +155,46 @@ h1.compHeading{
 }
 
 
+/* Competition Images */
+
+.img-comp{
+  padding-top: 20px;
+  padding-bottom: 40px;
+}
+
+hr.new5 {
+  color: black;
+  border: 10px solid rgb(236, 58, 13);
+  border-radius: 5px;
+  width:50%; 
+  margin-left:25% !important; 
+  margin-right:25% !important;
+}
+
+/* Competition submission */
+
+#custom-button {
+  padding: 10px;
+  color: black;
+  background-color: white;
+  border: 1px solid #000;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 50px;
+  transition: transform .2s; /* Animation */
+}
+
+#custom-button:hover {
+  background-color: black;
+  color: white;
+  transform: scale(1.25);
+}
+
+#custom-text {
+  margin-left: 10px;
+  font-family: sans-serif;
+  color: #aaa;
+}
 
 
 

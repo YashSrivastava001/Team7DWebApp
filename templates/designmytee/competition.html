@@ -1,0 +1,54 @@
+{% extends 'designmytee/base.html' %}
+{% load staticfiles %} <!-- New line -->
+{% block title_block %}
+    {% if competition %}
+    {{ competition.title }}
+    {% endif %}
+{% endblock %}
+
+{% block body_block %}
+
+
+<div class="heading">
+		
+    <h1 class="compHeading text-center">{{ competition.title }}</h1>
+    
+</div>
+    
+<h1 class="sub-text text-center sub-text-comp">{{ competition.competitionDescription }}</h1>
+
+
+<div class="img-comp text-center">
+    <img src="{{ MEDIA_URL }}{{ competition.competitionImage }}" class="img-fluid rounded mx-auto d-block " alt="...">
+    <hr class="new5">
+</div>
+
+<h3 class="sub-text text-center">Submission Deadline: {{ competition.endDate }}</competitoin></h3>
+
+<h3 class="sub-text text-center">Ready for submission? Submit Below!</competitoin></h3>
+
+
+{% if user.is_authenticated %}
+    <div>
+        <form id="{{ competition.title }}" class= 'required' method="post">
+            <input type="file" id="submission-file" hidden="hidden" />
+            <div class="text-center">
+                <button type="button" id="custom-button">CHOOSE A FILE</button>
+            <span id="custom-text">No file chosen, yet.</span>
+            </div> 
+        </form> 
+    </div>
+{% else %}
+    <div class="text-center sub-text-comp">
+        <h1 class="sub-text">You need to sign Up to Participate!</h1> 
+        <a href="{% url 'designmytee:account_login' %}" class="btn btn-outline-dark btn-lg" role="button">Sign In</a>
+        <br><br><br><br><br><br>
+    </div>
+   
+{% endif %}
+<script src="/static/sub.js"></script>
+
+
+    
+
+{% endblock %}
