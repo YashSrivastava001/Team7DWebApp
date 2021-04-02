@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Designer(models.Model):
-     ID_MAX_LENGTH = 8
     
      user = models.OneToOneField(User, on_delete=models.CASCADE, default=None, unique=True)
      
@@ -22,7 +21,10 @@ class Competition(models.Model):
     endDate = models.DateField()
     
     def start_date_before_end_date(self):
-        return(self.startDate < self.endDate)
+        return(self.startDate <= self.endDate)
+    
+    def test_length(self, size, fieldToTest):
+        return(len(fieldToTest) <= size)
     
 class Submission(models.Model):
     DESCRIPTION_MAX_LENGTH = 200
@@ -33,6 +35,9 @@ class Submission(models.Model):
     winner = models.BooleanField(default=False) 
     participant = models.ForeignKey(Designer, on_delete=models.CASCADE, unique=False)
     competition = models.ForeignKey(Competition, on_delete=models.CASCADE, default=None, unique=False) 
+    
+    def test_length(self, size, fieldToTest):
+        return(len(fieldToTest) <= size)
 
 class Support_Request(models.Model):
     NAME_MAX_LENGTH = 128
@@ -45,3 +50,5 @@ class Support_Request(models.Model):
     contactEmail = models.CharField(max_length=EMAIL_MAX_LENGTH)
     suggestionsOrFeedback = models.CharField(max_length=SUGGESTIONS_FEEDBACK_MAX_LENGTH)
     
+    def test_length(self, size, fieldToTest):
+        return(len(fieldToTest) <= size)
