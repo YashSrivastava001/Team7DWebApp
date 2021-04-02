@@ -10,42 +10,58 @@ from django.contrib.auth.models import User
 def populate():
     
     python_Designers = [
-        {'username': 'John212',
+        {'first_name': 'John',
+         'last_name': 'Thomas',
+         'username': 'John212',
          'password':'badPassword123',
          'email':'JohnJones@fakemail.com',
          'participations':52,
          'picture': 'profile_images/profile_1.jpg',
          'wins': 22},
-        {'username': 'Simon1212',
+        {'first_name': 'Simon',
+         'last_name': 'Peterson',
+         'username': 'Simon1212',
          'password':'goodPassword-12345',
          'email':'SimmySimon@realmail.co.uk',
          'participations':9,
          'wins': 2},
-        {'username': 'boom673',
+        {'first_name': 'Malinda',
+         'last_name': 'Robberts',
+         'username': 'boom673',
          'password':'password',
          'participations': 321,
          'picture': 'profile_images/profile_3.jpg',
          'email':'mysonsetthisup@testmail.com'},
-        {'username': 'Ö7',
+        {'first_name': 'Sven',
+         'last_name': 'Robberts',
+         'username': 'Ö7',
          'password':'WhereAmI',
          'email':'Ö@fakemail.com',
          'participations':812,
          'wins': 111},
-        {'username': 'PaulJog',
+        {'first_name': 'Paul',
+         'last_name': 'Byron',
+         'username': 'PaulJog',
          'password':'Test1234',
          'email':'Paul@fakemail.com',
          'participations':221,
          'wins': 32},
-        {'username': 'timtom',
+        {'first_name': 'Tim',
+         'last_name': 'Thomas',
+         'username': 'timtom',
          'password':'GoodPassword_99',
          'email':'timetamtom@testmail.com',
          'participations':88,},
-        {'username': 'user444',
+        {'first_name': 'Userson',
+         'last_name': 'Samson',
+         'username': 'user444',
          'password':'testpassword',
          'email':'useremail@fakemail.com',
          'participations':3,
          'wins': 2},
-        {'username': 'designer234',
+        {'first_name': 'Phil',
+         'last_name': 'Pjyotr',
+         'username': 'designer234',
          'password':'pleaseDontSteal',
          'email':'designer234@testmail.com',
          'participations':2212,
@@ -53,10 +69,14 @@ def populate():
         ]
     
     python_Hosts = [
-        {'username': 'bob',
+        {'first_name': 'bob',
+         'last_name': 'Wilbur',
+         'username': 'bob1',
          'password': 'WindowCleaner',
          'email': 'LookingForCat@petmail.com'},
-        {'username': 'hostUser',
+        {'first_name': 'Scott',
+         'last_name': 'Thomas',
+         'username': 'hostUser',
          'password': 'grapeSoda',
          'email': 'sodapoda@petmail.com',}
         ]
@@ -67,42 +87,48 @@ def populate():
          'competitionImage': 'competition_images/competition_1.jpg',
          'title': "Animals",
          'startDate': '2021-04-02',
-         'endDate': '2021-07-22'
+         'endDate': '2021-07-22',
+         'expiryDate': '2021-08-22'
             },
         {
          'competitionDescription': 'Submit your favourite TV show design!',
          'competitionImage': 'competition_images/competition_2.jpg',
          'title': "TV shows",
          'startDate': '2020-12-23',
-         'endDate': '2021-03-30'
+         'endDate': '2021-02-28',
+         'expiryDate': '2021-03-30'
             },
         {
          'competitionDescription': 'Submit your favourite video game design!',
          'competitionImage': 'competition_images/competition_3.jpg',
          'title': "video games",
          'startDate': '2021-02-27',
-         'endDate': '2021-05-13'
+         'endDate': '2021-05-13',
+         'expiryDate': '2021-06-14'
             },
         {
          'competitionDescription': 'Submit your favourite city picture design!',
          'competitionImage': 'competition_images/competition_4.jpg',
          'title': "Cities",
          'startDate': '2021-01-13',
-         'endDate': '2021-04-02'
+         'endDate': '2021-04-01',
+         'expiryDate': '2021-05-01',
             },
         {
          'competitionDescription': 'Submit your favourite space themed design!',
          'competitionImage': 'competition_images/competition_5.jpg',
          'title': "Space",
          'startDate': '2020-11-03',
-         'endDate': '2021-02-28'
+         'endDate': '2021-02-28',
+         'expiryDate': '2021-03-28'
             },
         {
          'competitionDescription': 'Submit your favourite country themed design!',
          'competitionImage': 'competition_images/competition_6.jpg',
          'title': "Countries",
          'startDate': '2021-08-23',
-         'endDate': '2021-09-22'
+         'endDate': '2021-09-22',
+         'expiryDate': '2021-10-22'
             }
         
         ]
@@ -166,7 +192,8 @@ def populate():
          'participant': 3,
          'submissionDescription': 'I visited here last year... it was amazing!',
          'designImage': "submission_images/submission_4_3.jpg",
-         'competition': 4
+         'competition': 4,
+         'winner': True
          },
         {'votes': 421,
          'participant': 1,
@@ -178,7 +205,8 @@ def populate():
          'participant': 6,
          'submissionDescription': 'FOOD IN SPACE!!!!!!',
          'designImage': "submission_images/submission_5_6.jpg",
-         'competition': 5
+         'competition': 5,
+         'winner': True
          },
         {'votes': 7,
          'participant': 2,
@@ -213,26 +241,28 @@ def populate():
         ]
     
     for Des in python_Designers:
-        add_Designer(Des.get('username'), Des.get('password'), Des.get('email'), Des.get('picture'), Des.get('participations'), Des.get('wins'))
+        add_Designer( Des.get('username'), Des.get('first_name'), Des.get('last_name'), Des.get('password'), Des.get('email'), Des.get('picture'), Des.get('participations'), Des.get('wins'))
         
     for Hos in python_Hosts:
-        add_Host(Hos.get('username'), Hos.get('password'), Hos.get('email'))
+        add_Host(Hos.get('username'), Hos.get('first_name'), Hos.get('last_name'), Hos.get('password'), Hos.get('email'))
         
     for Comp in python_Competitions:
-        add_Competition(Comp.get('competitionDescription'), Comp.get('competitionImage'), Comp.get('title'), Comp.get('startDate'), Comp.get('endDate'))
+        add_Competition(Comp.get('competitionDescription'), Comp.get('competitionImage'), Comp.get('title'), Comp.get('startDate'), Comp.get('endDate'), Comp.get('expiryDate'))
         
     for Sub in python_Submissions:
-        add_Submission(Sub.get('participant'), Sub.get('submissionDescription'), Sub.get('designImage'), Sub.get('competition'), Sub.get('votes'),)
+        add_Submission(Sub.get('participant'), Sub.get('submissionDescription'), Sub.get('designImage'), Sub.get('competition'), Sub.get('votes'),Sub.get('winner'))
     
     for Fed in Feedback_Submissions:
         add_Feedback(Fed.get('firstName'), Fed.get('lastName'), Fed.get('contactNumber'), Fed.get('contactEmail'), Fed.get('suggestionsOrFeedback'))
         
-def add_Designer(name, password, email, picture=None, participations=0, wins=0):
+def add_Designer(name, firstName, lastName, password, email, picture=None, participations=0, wins=0):
     if wins == None:
         wins = 0
     if participations == None:
         wins = 0
-    u = User.objects.create(username=name,  email=email)
+        
+    
+    u = User.objects.create(username=name,  email=email, first_name=firstName, last_name=lastName)
     u.set_password(password)
     u.save()
 
@@ -240,18 +270,18 @@ def add_Designer(name, password, email, picture=None, participations=0, wins=0):
 
     return d
     
-def add_Host(name, password, email):
-    u = User.objects.create(username=name, email=email, is_superuser=True, is_staff=True)
+def add_Host(name, firstName, lastName, password, email):
+    u = User.objects.create(username=name, email=email, first_name=firstName, last_name=lastName, is_superuser=True, is_staff=True)
     u.set_password(password)
     u.save()
     
     return u
 
-def add_Competition(competitionDescription, competitionImage, title, startDate, endDate):
-    c = Competition.objects.get_or_create(competitionDescription=competitionDescription, competitionImage=competitionImage, title=title, startDate=startDate, endDate=endDate)[0]
+def add_Competition(competitionDescription, competitionImage, title, startDate, endDate, expiryDate):
+    c = Competition.objects.get_or_create(competitionDescription=competitionDescription, competitionImage=competitionImage, title=title, startDate=startDate, endDate=endDate, expiryDate=expiryDate)[0]
     return c
         
-def add_Submission(participant, submissionDescription, designImage, competition, votes=0):
+def add_Submission(participant, submissionDescription, designImage, competition, votes=0, winner=False):
     if votes == None:
         votes = 0
     c = Competition.objects.get(id=competition)
@@ -259,6 +289,10 @@ def add_Submission(participant, submissionDescription, designImage, competition,
     
     s = Submission.objects.get_or_create(votes=votes, participant=d, submissionDescription=submissionDescription, designImage=designImage, competition=c)[0]
     s.votes=votes
+    
+    if winner == True:
+        Competition.objects.filter(id=competition).update(competitionWinner=s)
+        
     return s
 
 def add_Feedback(firstName, lastName, contactNumber, contactEmail, suggestionsOrFeedback):

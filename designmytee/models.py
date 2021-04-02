@@ -8,7 +8,8 @@ class Designer(models.Model):
      picture = models.ImageField(upload_to='profile_images/', blank=True) # optional field
      participations = models.IntegerField(default=0, null=True)
      wins = models.IntegerField(default=0, null=True)
-     luckyDrawWinner = models.BooleanField(default=False)
+     
+
     
 class Competition(models.Model):
     DESCRIPTION_MAX_LENGTH = 200
@@ -19,9 +20,14 @@ class Competition(models.Model):
     competitionImage = models.ImageField(upload_to='competition_images/', blank=True) # optional field
     startDate = models.DateField()
     endDate = models.DateField()
+    expiryDate = models.DateField(default=None)
+    competitionWinner = models.OneToOneField('Submission', related_name="competition_Winner", on_delete=models.CASCADE, default=None, unique=False, null=True) # Submission is in quotes as it is not defined yet
     
     def start_date_before_end_date(self):
         return(self.startDate <= self.endDate)
+    
+    def end_date_before_expiry_date(self):
+        return(self.endDate <= self.expiryDate)
     
     def test_length(self, size, fieldToTest):
         return(len(fieldToTest) <= size)

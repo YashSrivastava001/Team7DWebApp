@@ -11,13 +11,12 @@ class SubmissionAdmin(admin.ModelAdmin):
     list_display = ('participant', 'id', 'submissionDescription', 'votes')
     
 class CompetitionAdmin(admin.ModelAdmin):
-    list_display = ('title', 'id', 'startDate', 'endDate')
+    list_display = ('title', 'id', 'startDate', 'endDate', 'expiryDate')
     
 class FeedbackAdmin(admin.ModelAdmin):
     list_display = ('firstName', 'lastName', 'contactNumber', 'contactEmail', 'suggestionsOrFeedback')
 
 admin.site.register(Designer, DesignerAdmin)
-#admin.site.register(Host, HostAdmin)
 admin.site.register(Submission, SubmissionAdmin)
 admin.site.register(Competition, CompetitionAdmin)
 admin.site.register(Support_Request, FeedbackAdmin)
