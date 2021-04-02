@@ -67,14 +67,14 @@ def populate():
          'competitionImage': 'competition_images/competition_1.jpg',
          'title': "Animals",
          'startDate': '2021-04-02',
-         'endDate': '2020-07-22'
+         'endDate': '2021-07-22'
             },
         {
          'competitionDescription': 'Submit your favourite TV show design!',
          'competitionImage': 'competition_images/competition_2.jpg',
          'title': "TV shows",
-         'startDate': '2021-03-23',
-         'endDate': '2020-06-30'
+         'startDate': '2020-12-23',
+         'endDate': '2021-03-30'
             },
         {
          'competitionDescription': 'Submit your favourite video game design!',
@@ -222,12 +222,16 @@ def populate():
         add_Competition(Comp.get('competitionDescription'), Comp.get('competitionImage'), Comp.get('title'), Comp.get('startDate'), Comp.get('endDate'))
         
     for Sub in python_Submissions:
-        add_Submission(Sub.get('votes'), Sub.get('participant'), Sub.get('submissionDescription'), Sub.get('designImage'), Sub.get('competition'))
+        add_Submission(Sub.get('participant'), Sub.get('submissionDescription'), Sub.get('designImage'), Sub.get('competition'), Sub.get('votes'),)
     
     for Fed in Feedback_Submissions:
         add_Feedback(Fed.get('firstName'), Fed.get('lastName'), Fed.get('contactNumber'), Fed.get('contactEmail'), Fed.get('suggestionsOrFeedback'))
         
 def add_Designer(name, password, email, picture=None, participations=0, wins=0):
+    if wins == None:
+        wins = 0
+    if participations == None:
+        wins = 0
     u = User.objects.create(username=name,  email=email)
     u.set_password(password)
     u.save()
@@ -247,7 +251,9 @@ def add_Competition(competitionDescription, competitionImage, title, startDate, 
     c = Competition.objects.get_or_create(competitionDescription=competitionDescription, competitionImage=competitionImage, title=title, startDate=startDate, endDate=endDate)[0]
     return c
         
-def add_Submission(votes, participant, submissionDescription, designImage, competition):
+def add_Submission(participant, submissionDescription, designImage, competition, votes=0):
+    if votes == None:
+        votes = 0
     c = Competition.objects.get(id=competition)
     d = Designer.objects.get(id=participant)
     
