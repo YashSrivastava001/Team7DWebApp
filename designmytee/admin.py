@@ -11,7 +11,12 @@ class SubmissionAdmin(admin.ModelAdmin):
     list_display = ('participant', 'id', 'submissionDescription', 'votes')
     
 class CompetitionAdmin(admin.ModelAdmin):
+
     list_display = ('title', 'id', 'startDate', 'endDate', 'expiryDate')
+    prepopulated_fields = {'slug':('title',)}
+
+    list_display = ('title', 'id', 'startDate', 'endDate', 'expiryDate')
+
     
 class FeedbackAdmin(admin.ModelAdmin):
     list_display = ('firstName', 'lastName', 'contactNumber', 'contactEmail', 'suggestionsOrFeedback')

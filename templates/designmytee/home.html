@@ -24,7 +24,7 @@
       				<h1 class="carousel-text">Hi, {{ user.username }}!</h1>
       				{% else %}
         			<h1 class="carousel-text">Join Us Today!</h1>
-        			<button type="button" class="btn btn-outline-light btn-lg">Sign In</button>
+        			<a href="{% url 'designmytee:account_login' %}" class="btn btn-outline-light btn-lg" role="button">Sign In</a>
         			{% endif %}
 
       			</div>
@@ -82,7 +82,7 @@
                     <h5 class="card-title">{{ competition.title }}</h5>
                     <h6 class="card-subtitle mb-2 text-muted">Deadline: {{competition.endDate }}</h6>
                     <p class="card-text">{{ competition.competitionDescription }}</p>
-                    <a href="#" class="btn btn-primary">Participate</a>
+                    <a href="/designmytee/competition/{{ competition.slug }}/" class="btn btn-outline-dark btn-lg">Participate</a>
                 </div>
             </div>
         </div>

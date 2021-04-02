@@ -1,4 +1,5 @@
 from django.db import models
+from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 
 class Designer(models.Model):
@@ -20,8 +21,21 @@ class Competition(models.Model):
     competitionImage = models.ImageField(upload_to='competition_images/', blank=True) # optional field
     startDate = models.DateField()
     endDate = models.DateField()
+    
     expiryDate = models.DateField(default=None)
     competitionWinner = models.OneToOneField('Submission', related_name="competition_Winner", on_delete=models.CASCADE, default=None, unique=False, null=True) # Submission is in quotes as it is not defined yet
+
+    
+    slug = models.SlugField(unique=True)
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super(Competition, self).save(*args, **kwargs)
+
+    class Meta:
+        verbose_name_plural = 'competitions'
+
+    def __str__(self):
+        return self.title
     
     def start_date_before_end_date(self):
         return(self.startDate <= self.endDate)
