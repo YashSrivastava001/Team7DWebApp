@@ -33,7 +33,10 @@ class DesignerTests(TestCase):
             self.assertTrue(d.wins >= 0, "Error, Designer instance exists with either no default wins or an invalid wins count, see user: " + str(d.id))
             self.assertTrue(d.participations >= 0, "Error, Designer instance exists with either no default participations or an invalid participation count, see user: " + str(d.id))
             
-            
+    def test_wins_not_more_than_participations(self):
+        for d in Designer.objects.all():
+            self.assertTrue(d.wins <= d.participations, "Error, designer wins are more than participations, check user: " + str(d.id))
+        
 class CompetitionTests(TestCase):
     @classmethod
     def setUpTestData(cls):
@@ -57,10 +60,15 @@ class CompetitionTests(TestCase):
         competitionDirectory = os.path.join(cwd, 'Media\competition_images')
         self.assertTrue(len(os.listdir(competitionDirectory)) != 0, "Error, no images are stored in competition_images folder")
     
-    def test_start_is_not_before_end(self):
+    def test_start_date_is_before_end_date(self):
         
         for c in Competition.objects.all():
             self.assertIs(c.start_date_before_end_date(), True, "Error, Start date is after end date, object id: " + str(c.id))
+            
+    def test_end_date_is_before_expiry_date(self):
+        
+        for c in Competition.objects.all():
+            self.assertIs(c.end_date_before_expiry_date(), True, "Error, End date is after Expiry date, object id: " + str(c.id))
         
     def test_lengths_are_adheared_to(self):
         
