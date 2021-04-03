@@ -6,7 +6,7 @@ class Designer(models.Model):
     
      user = models.OneToOneField(User, on_delete=models.CASCADE, default=None, unique=True)
      
-     picture = models.ImageField(upload_to='profile_images/', blank=True) # optional field
+     picture = models.ImageField(upload_to='profile_images/', blank=True, default='images/homepage-cover.jpeg') # optional field
      participations = models.IntegerField(default=0, null=True)
      wins = models.IntegerField(default=0, null=True)
      luckyDrawWinner = models.BooleanField(default=False)

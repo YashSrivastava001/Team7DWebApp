@@ -100,6 +100,8 @@ LOGIN_REDIRECT_URL = '/designmytee/myprofile/'
 
 ACCOUNT_EMAIL_REQUIRED = True
 
+ACCOUNT_FORMS = {'signup': 'designmytee.forms.CustomSignupForm'}
+
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
