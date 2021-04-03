@@ -1,7 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from designmytee.models import Competition
+from designmytee.models import Competition, Designer
 from django.template import RequestContext
+from designmytee.forms import CustomSignupForm
+from django.shortcuts import redirect
+from django.contrib.auth import get_user
 
 # Create your views here.
 
@@ -18,13 +21,19 @@ def help(request):
     return render(request, 'designmytee/help.html')
 
 def myprofile(request):
-     return render(request, 'designmytee/myprofile.html')
+    context_dict = {}
+    designers_list = Designer.objects.all()
+    context_dict['designers'] = designers_list
+    return render(request, 'designmytee/myprofile.html', context=context_dict)
 
 def results(request):
     return render(request, 'designmytee/results.html')
 
 def competitions(request):
-    return render(request, 'designmytee/competitions.html')
+    competitions_list = Competition.objects.all()
+    context_dict = {}
+    context_dict['competitions'] = competitions_list
+    return render(request, 'designmytee/competitions.html', context=context_dict)
 
 def show_competition(request, competition_name_slug):
 # Create a context dictionary which we can pass
