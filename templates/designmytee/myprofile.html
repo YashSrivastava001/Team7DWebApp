@@ -5,11 +5,11 @@
 {% endblock %}
 
 {% block body_block %}
+<link rel="stylesheet" type="text/css" href="/static/profile.css">
 <br>
 	<header class="text-center">
-		<h1> My Profile</h1>
+		<h1> My Profile</h1>        
 	</header>
-	<br>
 	
 	<div class="container-fluid">
 		<div class="row">
@@ -25,17 +25,12 @@
 		  </div>
 		  
 		  <div class="col-sm-9 col-md-8" style="background-color:lightblue;">
-
-
-			{% for designer in designers %}
-			{% if designer.user.username == user.username %}
-						<div class="row">
+			<div class="row">
 				<div class="col-md-6">
 					<br>
 					<h5>First Name</h5>
 				</div>
 				<div class="col-md-6 text-secondary">
-					<br>
 					<p>{{ user.first_name }}</p>
 				</div>
 			</div>
@@ -74,6 +69,9 @@
 			</div>
 
 			<hr>
+
+			{% for designer in designers %}
+			{% if designer.user.username == user.username %}
 			<div class="row">
 				<div class="col-md-6">
 					<h5>Wins</h5>
