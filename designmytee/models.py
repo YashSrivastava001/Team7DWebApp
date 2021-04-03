@@ -67,7 +67,7 @@ class Support_Request(models.Model):
     firstName = models.CharField(max_length=NAME_MAX_LENGTH)
     lastName = models.CharField(max_length=NAME_MAX_LENGTH)
     contactNumber = models.CharField(max_length=11)
-    contactEmail = models.CharField(max_length=EMAIL_MAX_LENGTH)
+    contactEmail = models.EmailField(max_length=EMAIL_MAX_LENGTH)
     suggestionsOrFeedback = models.CharField(max_length=SUGGESTIONS_FEEDBACK_MAX_LENGTH)
     
     def test_length(self, size, fieldToTest):
