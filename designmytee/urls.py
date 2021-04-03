@@ -10,6 +10,8 @@ urlpatterns = [
     path('help/', views.help, name='help'),
     path('results/', views.results, name='results'),
     path('competitions/', views.competitions, name='competitions'),
+    path('competition/<slug:competition_name_slug>/',
+        views.show_competition, name='show_competition'),
     path('myprofile/', views.myprofile, name = 'myprofile'),
     path('login/', LoginView.as_view(), name='account_login'),
     path('signup/', SignupView.as_view(), name='account_signup'),

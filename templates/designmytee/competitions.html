@@ -5,21 +5,5 @@
 {% endblock %}
 
 {% block body_block %}
-<div class="container">
-    <div class="row">
-    	{% for competition in competitions %}
-        <div class="col-auto">
-            <div class="card">
-                <div class="card-body">
-                	<img class="card-img-top" src="{{ MEDIA_URL }}{{ competition.competitionImage }}" alt="Competition Image">
-                    <h5 class="card-title">{{ competition.title }}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Deadline: {{competition.endDate }}</h6>
-                    <p class="card-text">{{ competition.competitionDescription }}</p>
-                    <a href="#" class="btn btn-primary">Participate</a>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-</div>
+
 {% endblock %}

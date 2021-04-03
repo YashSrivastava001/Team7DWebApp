@@ -1,15 +1,16 @@
 from django.db import models
+from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 
 class Designer(models.Model):
-     ID_MAX_LENGTH = 8
     
      user = models.OneToOneField(User, on_delete=models.CASCADE, default=None, unique=True)
      
      picture = models.ImageField(upload_to='profile_images/', blank=True, default='images/homepage-cover.jpeg') # optional field
      participations = models.IntegerField(default=0, null=True)
      wins = models.IntegerField(default=0, null=True)
-     luckyDrawWinner = models.BooleanField(default=False)
+     
+
     
 class Competition(models.Model):
     DESCRIPTION_MAX_LENGTH = 200
@@ -21,8 +22,29 @@ class Competition(models.Model):
     startDate = models.DateField()
     endDate = models.DateField()
     
+    expiryDate = models.DateField(default=None)
+    competitionWinner = models.OneToOneField('Submission', related_name="competition_Winner", on_delete=models.CASCADE, default=None, unique=False, null=True) # Submission is in quotes as it is not defined yet
+
+    
+    slug = models.SlugField(unique=True)
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super(Competition, self).save(*args, **kwargs)
+
+    class Meta:
+        verbose_name_plural = 'competitions'
+
+    def __str__(self):
+        return self.title
+    
     def start_date_before_end_date(self):
-        return(self.startDate < self.endDate)
+        return(self.startDate <= self.endDate)
+    
+    def end_date_before_expiry_date(self):
+        return(self.endDate <= self.expiryDate)
+    
+    def test_length(self, size, fieldToTest):
+        return(len(fieldToTest) <= size)
     
 class Submission(models.Model):
     DESCRIPTION_MAX_LENGTH = 200
@@ -33,6 +55,9 @@ class Submission(models.Model):
     winner = models.BooleanField(default=False) 
     participant = models.ForeignKey(Designer, on_delete=models.CASCADE, unique=False)
     competition = models.ForeignKey(Competition, on_delete=models.CASCADE, default=None, unique=False) 
+    
+    def test_length(self, size, fieldToTest):
+        return(len(fieldToTest) <= size)
 
 class Support_Request(models.Model):
     NAME_MAX_LENGTH = 128
@@ -45,3 +70,5 @@ class Support_Request(models.Model):
     contactEmail = models.CharField(max_length=EMAIL_MAX_LENGTH)
     suggestionsOrFeedback = models.CharField(max_length=SUGGESTIONS_FEEDBACK_MAX_LENGTH)
     
+    def test_length(self, size, fieldToTest):
+        return(len(fieldToTest) <= size)

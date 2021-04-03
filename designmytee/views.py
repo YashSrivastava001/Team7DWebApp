@@ -35,4 +35,23 @@ def competitions(request):
     context_dict['competitions'] = competitions_list
     return render(request, 'designmytee/competitions.html', context=context_dict)
 
+def show_competition(request, competition_name_slug):
+# Create a context dictionary which we can pass
+# to the template rendering engine.
+    context_dict = {}
+
+    try:
+    
+        competition = Competition.objects.get(slug=competition_name_slug)
+       
+        
+        context_dict['competition'] = competition
+
+    except Competition.DoesNotExist:
+        context_dict['competition'] = None
+       
+
+    # Go render the response and return it to the client.
+    return render(request, 'designmytee/competition.html', context=context_dict)
+
 
