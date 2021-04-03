@@ -26,7 +26,7 @@ class Competition(models.Model):
     competitionWinner = models.OneToOneField('Submission', related_name="competition_Winner", on_delete=models.CASCADE, default=None, unique=False, null=True) # Submission is in quotes as it is not defined yet
 
     
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, default=None)
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
         super(Competition, self).save(*args, **kwargs)
