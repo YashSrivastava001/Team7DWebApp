@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from designmytee.models import Competition, Designer
 from django.template import RequestContext
-from designmytee.forms import CustomSignupForm
+from designmytee.forms import CustomSignupForm, FeedbackForm
 from django.shortcuts import redirect
 from django.contrib.auth import get_user
 
@@ -18,7 +18,27 @@ def about(request):
      return render(request, 'designmytee/about.html')
  
 def help(request):
-    return render(request, 'designmytee/help.html')
+    form = FeedbackForm()
+    
+       # A HTTP POST?
+    if request.method == 'POST':
+        form = FeedbackForm(request.POST)
+        
+        # Have we been provided with a valid form?
+        if form.is_valid():
+            # Save the new category to the database.
+            form.save(commit=True)
+            # Now that the category is saved, we could confirm this.
+            # For now, just redirect the user block to the index view.
+            return redirect('/designmytee/')
+        else:
+            # The supplied form contained errors -
+            # just print them to the terminal.
+            print(form.errors)
+    
+    # Will handle the bad form, new form, or no form supplied cases.
+    # Render the form with error messages (if any).
+    return render(request, 'designmytee/help.html', {'form': form})
 
 def myprofile(request):
     context_dict = {}
@@ -53,5 +73,4 @@ def show_competition(request, competition_name_slug):
 
     # Go render the response and return it to the client.
     return render(request, 'designmytee/competition.html', context=context_dict)
-
 
