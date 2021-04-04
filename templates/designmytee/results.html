@@ -6,17 +6,16 @@
 {% block body_block %}
 			<header class="text-center col-12">
 				<div class="row">
-				<div class="container-2">
+				<div class="container">
 				<h1> Results </h1>
 			</header>
 			<hr class="shadow">
 <br>
 <header class="text-center col-13">
 <div class="row">
-  {% for competition in closed_competitions %}
-  <h3 class="body1"><b><i>Competition Name: {{ competition.title }}</b></i></h3>
+  <h3 class="body1"><b><i>Competition Name: Save Nature</b></i></h3>
   <br>
-  <p> This competition was held from {{ competition.startDate }}, to {{ competition.endDate }}.
+  <p> This competition was held from 1st March 2021, to 30th March 2021.
   <br>
   Hover over the winning design below, to know the winner of the competition.  
   </p>
@@ -24,19 +23,58 @@
   <div class="content">
     <a href="{% static 'images/nature.jpg' %}" target="_blank">
       <div class="content-overlay"></div>
-      <img class="content-image" src="{{ MEDIA_URL }}{{ competition.competitionWinner.designImage }}">
+      <img class="content-image" src="{% static 'images/nature.jpg' %}">
       <div class="content-details fadeIn-top">
-        <h3>{{ competition.competitionWinner.participant }}</h3>
+        <h3>Barry Marsh</h3>
+        <p><i>This T-shirt was very poular among people as it beautifully depicted the importance of nature, the color combination and the design was pristine.</i></p>
       </div>
     </a>
   </div>
 </div>
 <br>
-<!-- <p><button onclick="myFunction1()" class="button button2">Click to know the winner of the Lucky Draw! </button></p>
-<div id="myDIV">Many Congratulations To</div> -->
+<p><button onclick="myFunction1()" class="button button2">Click to know the winner of the Lucky Draw! </button></p>
+<div id="myDIV">Many Congratulations To</div>
 <br>
 <hr>
-{% endfor %}
+<div class="body1">
+  <h3 class="title"><b><i>Competition Name: My City</b></i></h3>
+    <p> This competition was held from 1st Feburary 2021, to 28th Feburary 2021.
+  <br>
+  Hover over the winning design below, to know the winner of the competition.  
+  </p>
+  <div class="content">
+    <a href="{% static 'images/london.jpg' %}" target="_blank">
+      <div class="content-overlay"></div>
+      <img class="content-image" src="{% static 'images/london.jpg' %}">
+      <div class="content-details fadeIn-top">
+        <h3>Paul Lennon</h3>
+        <p>This T-shirt was very poular among people as it beautifully depicted the beauty of the city of London, and the designer showed great design technique.</p>
+      </div>
+    </a>
+  </div>
+</div>
+<p><button onclick="myFunction2()" class="button button2" >Click to know the winner of the Lucky Draw! </button></p>
+<div id="myDIV2">Many Congratulations To</div>
+<hr>
+<div class="row">
+  <h3 class="title"><b><i>Competition Name: Winter</b></i></h3>
+    <p> This competition was held from 1st January 2021, to 31st January 2021.
+  <br>
+  Hover over the winning design below, to know the winner of the competition.  
+  </p>
+  <div class="content">
+    <a href="{% static 'images/winter.jpg' %}" target="_blank">
+      <div class="content-overlay"></div>
+      <img class="content-image" src="{% static 'images/winter.jpg' %}">
+      <div class="content-details fadeIn-top">
+        <h3>Freddie May</h3>
+        <p>This T-shirt was very poular among people brillantly showed the festive season and used a design that is versitile and intricate.</p>
+      </div>
+    </a>
+  </div>
+</div>
+<p><button onclick="myFunction3()" class="button button2" >Click to know the winner of the Lucky Draw! </button></p>
+<div id="myDIV3">Many Congratulations To</div>
 <script src="{% static 'flip.js' %}"></script>
 {% endblock %}
 	
