@@ -95,7 +95,7 @@ def populate():
          'competitionImage': 'competition_images/competition_2.jpg',
          'title': "TV shows",
          'startDate': '2020-12-23',
-         'endDate': '2021-02-28',
+         'endDate': '2021-01-22',
          'expiryDate': '2021-03-30'
             },
         {
@@ -119,8 +119,8 @@ def populate():
          'competitionImage': 'competition_images/competition_5.jpg',
          'title': "Space",
          'startDate': '2020-11-03',
-         'endDate': '2021-04-28',
-         'expiryDate': '2021-05-28'
+         'endDate': '2021-02-28',
+         'expiryDate': '2021-04-02'
             },
         {
          'competitionDescription': 'Submit your favourite country themed design!',
