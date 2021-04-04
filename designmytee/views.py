@@ -16,7 +16,10 @@ def signin(request):
      return render(request, 'designmytee/signin.html')
 
 def results(request):
-    return render(request, 'designmytee/results.html')
+    winners_list = Designer.objects.all()
+    context_dict = {}
+    context_dict['Winners'] = winners_list
+    return render(request, 'designmytee/results.html', context = context_dict)
 
 def competitions(request):
     return render(request, 'designmytee/competitions.html')
