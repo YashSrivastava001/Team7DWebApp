@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from designmytee.models import Competition, Designer
+from designmytee.models import Competition, Designer, Submission
 from django.template import RequestContext
 from designmytee.forms import CustomSignupForm, FeedbackForm
 from django.shortcuts import redirect
@@ -69,6 +69,10 @@ def show_competition(request, competition_name_slug):
        
         
         context_dict['competition'] = competition
+
+        submission_list = Submission.objects.filter(competition=competition)
+
+        context_dict['submissions'] = submission_list
 
     except Competition.DoesNotExist:
         context_dict['competition'] = None

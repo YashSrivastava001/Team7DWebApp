@@ -18,4 +18,5 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name='account_logout'),
     path('password/reset/', PasswordResetView.as_view(), name='account_reset_password'),
     path('myprofile/email/', EmailView.as_view(), name='account_email'),
+    
 ]

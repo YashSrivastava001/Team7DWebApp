@@ -48,14 +48,14 @@ class FeedbackForm(forms.ModelForm):
         firstname = self.cleaned_data['firstName']
         
         if len(firstname) > 128:
-            raise ValidationError('Error, name cannot be more than 128 characters')#
+            raise ValidationError('Error, firstname cannot be more than 128 characters')#
         
         return(firstname)
     def clean_lastName(self):
         lastname = self.cleaned_data['lastName']
         
         if len(lastname) > 128:
-            raise ValidationError('Error, name cannot be more than 128 characters')
+            raise ValidationError('Error, lastname cannot be more than 128 characters')
 
         return lastname
     
@@ -63,14 +63,14 @@ class FeedbackForm(forms.ModelForm):
         email = self.cleaned_data['contactEmail']
         
         if len(email) > 200:
-            raise ValidationError('Error, name cannot be more than 200 characters')
+            raise ValidationError('Error, email cannot be more than 200 characters')
         
         return email
     def clean_suggestionsOrFeedback(self):
         suggestionsOrFeedback = self.cleaned_data['suggestionsOrFeedback']
         
         if len(suggestionsOrFeedback) > 500:
-            raise ValidationError('Error, name cannot be more than 500 characters')
+            raise ValidationError('Error, Feedback cannot be more than 500 characters')
             
         return suggestionsOrFeedback
     class Meta:
