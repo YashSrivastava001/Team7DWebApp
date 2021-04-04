@@ -1,6 +1,7 @@
 from django.test import TestCase
 from designmytee.models import  Designer, Submission, Competition, Support_Request 
 from populate_designmytee import populate
+from designmytee.forms import FeedbackForm
 
 import os
 
@@ -17,6 +18,13 @@ class DesignerTests(TestCase):
     def test_user_connected_to_designer(self):
         for d in Designer.objects.all():
             self.assertTrue(d.user != None, "Error, Designer instance exists with no user, please check user: " + str(d.id))
+    
+    def test_user_instances_contain_correct_fields(self):
+        for d in Designer.objects.all():
+            self.assertTrue(d.user.first_name != None, "Error, Designer intances user has no firstname, check user: " + str(d.id))
+            self.assertTrue(d.user.last_name != None, "Error, Designer intances user has no lastname, check user: " + str(d.id))
+            self.assertTrue(d.user.username != None, "Error, Designer intances user has no username, check user: " + str(d.id))
+            self.assertTrue(d.user.password != None, "Error, Designer intances user has no password, check user: " + str(d.id))
             
     def test_category_image_directory_is_in_place(self):
         cwd = os.getcwd()
@@ -140,3 +148,17 @@ class FeedbackTests(TestCase):
             self.assertIs(f.test_length(fieldToTest=f.contactEmail, size=200), True, "Error, object contactEmail has an invalid size, object id: " + str(f.id))
             self.assertIs(f.test_length(fieldToTest=f.suggestionsOrFeedback, size=500), True, "Error, object suggestionsOrFeedback has an invalid size, object id: " + str(f.id))
             
+class Forms(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        populate()
+        
+    def test_feedback_form_detects_wrong_contact_number(self):
+        form = FeedbackForm(data={'contactNumber': "08217482"})
+        self.assertEqual(form.errors['contactNumber'], ['Error, not a valid phone number, length must be 11 and in the form: "07124282832"'], "Error, feedback form does not correctly identify phone numbers of incorrect length")
+        #form = FeedbackForm(data={'firstName': 'test', 'lastName': 'test2', 'contactEmail': "test@testmail.com", 'contactNumber': "08272617482", 'suggestionsOrFeedback': "test feedback"})
+        #self.assertEqual(form.errors['contactNumber'], ['Error, not a valid phone number, length must be 11 and in the form: "07124282832"'], "Error, feedback form does not correctly identify phone numbers of incorrect length")
+        
+        
+        
+        
