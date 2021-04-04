@@ -15,3 +15,12 @@ realFileBtn.addEventListener("change", function() {
     customTxt.innerHTML = "No file chosen, yet.";
   }
 });
+
+function allowVote () {
+  // Disable the button
+  document.getElementById("voteButton").disabled = true;
+
+  // Do your processing here
+  alert("Vote Added!");
+}
+

@@ -127,6 +127,10 @@ h1.compHeading{
 
 }
 
+.heading-vote{
+  margin-top: 300px;
+}
+
 @media (max-width: 858px){
   .heading{
     padding-top: 10%;
@@ -206,7 +210,7 @@ hr.new5 {
   width: 300px;
   height: 280px;
   position:absolute;
-  top: calc(100%-10px);
+  top: calc(100%-100px);
   left: calc(50% - 150px);
   
 }

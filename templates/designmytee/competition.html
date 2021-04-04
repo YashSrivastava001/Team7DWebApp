@@ -35,6 +35,7 @@
             <div class="text-center">
                 <button type="button" id="custom-button">CHOOSE A FILE</button>
             <span id="custom-text">No file chosen, yet.</span>
+            <input type="submit" name="submit" value="Submit" />
             </div> 
         </form> 
     </div>
@@ -70,6 +71,34 @@
         <div class="coffee-footer"></div>
       </div>    
 </div>
+
+
+<div class="heading heading-vote">
+		
+    <h1 class="compHeading text-center">Vote!</h1>
+    
+</div>
+
+
+<div class="container mt-4">
+    <div class="row">
+    	{% for submission in submissions %}
+        <div class="col-auto mb-3">
+            <div class="card">
+                <div class="card-body">
+                	<img class="card-img-top" src="{{ MEDIA_URL }}{{ submission.designImage }}" alt="Competition Image">
+                    <h5 class="card-title">Submission by {{ submission.participant.user.username }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Votes: {{ submission.votes }}</h6>
+                    <p class="card-text">{{ submission.submissionDescription }}</p>
+                    {% if user.is_authenticated %}
+                    <button id="voteButton" onclick="allowVote()" class="btn btn-outline-dark btn-lg">Vote</button>
+                    {% else %}
+                    <a href="{% url 'designmytee:account_login' %}" class="card-subtitle mb-2 text-muted">Sign In to Vote </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
 
 <script src="/static/sub.js"></script>
 
