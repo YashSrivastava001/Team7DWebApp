@@ -22,7 +22,7 @@
   </p>
   </hr>
   <div class="content">
-    <a href="{% static 'images/nature.jpg' %}" target="_blank">
+    <a href="{{ MEDIA_URL }}{{ competition.competitionWinner.designImage }}" target="_blank">
       <div class="content-overlay"></div>
       <img class="content-image" src="{{ MEDIA_URL }}{{ competition.competitionWinner.designImage }}">
       <div class="content-details fadeIn-top">

@@ -103,7 +103,7 @@ def populate():
          'competitionImage': 'competition_images/competition_3.jpg',
          'title': "video games",
          'startDate': '2021-02-27',
-         'endDate': '2021-05-13',
+         'endDate': '2021-04-3',
          'expiryDate': '2021-06-14'
             },
         {
@@ -112,15 +112,15 @@ def populate():
          'title': "Cities",
          'startDate': '2021-01-13',
          'endDate': '2021-04-01',
-         'expiryDate': '2021-05-01',
+         'expiryDate': '2021-05-01'
             },
         {
          'competitionDescription': 'Submit your favourite space themed design!',
          'competitionImage': 'competition_images/competition_5.jpg',
          'title': "Space",
          'startDate': '2020-11-03',
-         'endDate': '2021-02-28',
-         'expiryDate': '2021-03-28'
+         'endDate': '2021-04-28',
+         'expiryDate': '2021-05-28'
             },
         {
          'competitionDescription': 'Submit your favourite country themed design!',
@@ -168,7 +168,8 @@ def populate():
          'participant': 'timtom',
          'submissionDescription': 'The best Netflix series! cant wait for the next season!',
          'designImage': "submission_images/submission_2_6.png",
-         'competition': 2
+         'competition': 2,
+         'winner': True
          },
         {'votes': 321,
          'participant': 'user444',
@@ -192,8 +193,7 @@ def populate():
          'participant': 'boom673',
          'submissionDescription': 'I visited here last year... it was amazing!',
          'designImage': "submission_images/submission_4_3.jpg",
-         'competition': 4,
-         'winner': True
+         'competition': 4
          },
         {'votes': 421,
          'participant': 'John212',
@@ -282,6 +282,8 @@ def add_Competition(competitionDescription, competitionImage, title, startDate, 
     return c
         
 def add_Submission(participant, submissionDescription, designImage, competition, votes=0, winner=False):
+    if winner == None:
+        winner = False
     if votes == None:
         votes = 0
     c = Competition.objects.get(id=competition)

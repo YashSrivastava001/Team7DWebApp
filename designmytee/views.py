@@ -10,7 +10,13 @@ from datetime import date
 # Create your views here.
 
 def home(request):
-    competitions_list = Competition.objects.all()
+    end = date(2030, 12 , 12)
+    start2 = date(2010, 12 , 12)
+    start = date.today()
+    
+    # below query set filters out competition that have not started yet, and competitions that have finished (closed for voting and submissions)
+    
+    competitions_list = Competition.objects.filter(expiryDate__range=[start, end], startDate__range=[start2, start]).order_by('expiryDate')[:3]
     context_dict = {}
     context_dict['competitions'] = competitions_list
     return render(request, 'designmytee/home.html', context = context_dict)
@@ -50,7 +56,12 @@ def myprofile(request):
 def results(request):
     winners_list = Designer.objects.all()
     
-    closed_competitions_list = Competition.objects.all()
+    start = date(2010, 12 , 12)
+    end = date.today()
+    
+    # below queryset only shows 10 competitoons that have finished
+    
+    closed_competitions_list = Competition.objects.filter(expiryDate__range=[start, end]).order_by('endDate')[:10]
     context_dict = {}
     context_dict['closed_competitions'] = closed_competitions_list
 
@@ -73,7 +84,13 @@ def show_competition(request, competition_name_slug):
        
         
         context_dict['competition'] = competition
-
+        
+        if competition.endDate < date.today():
+            voteOpen = True
+        elif competition.endDate >= date.today():
+            voteOpen = False
+            
+        context_dict['voteOpen'] = voteOpen
         submission_list = Submission.objects.filter(competition=competition)
 
         context_dict['submissions'] = submission_list
