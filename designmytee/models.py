@@ -23,7 +23,7 @@ class Competition(models.Model):
     endDate = models.DateField()
     
     expiryDate = models.DateField(default=None)
-    competitionWinner = models.OneToOneField('Submission', related_name="competition_Winner", on_delete=models.CASCADE, default=None, unique=False, null=True) # Submission is in quotes as it is not defined yet
+    competitionWinner = models.OneToOneField("Submission", related_name="competition_Winner", on_delete=models.CASCADE, default=None, unique=False, null=True) # Submission is in quotes as it is not defined yet
 
     
     slug = models.SlugField(unique=True, default=None)
@@ -45,19 +45,19 @@ class Competition(models.Model):
     
     def test_length(self, size, fieldToTest):
         return(len(fieldToTest) <= size)
-    
+
 class Submission(models.Model):
     DESCRIPTION_MAX_LENGTH = 200
-    
-    designImage = models.ImageField(upload_to='Submission_images/')
+    designImage = models.ImageField(upload_to='Submission_images/', null=True, blank=True)
     submissionDescription = models.CharField(max_length=DESCRIPTION_MAX_LENGTH, default=None)
     votes = models.IntegerField(default=0)
     winner = models.BooleanField(default=False) 
-    participant = models.ForeignKey(Designer, on_delete=models.CASCADE, unique=False)
-    competition = models.ForeignKey(Competition, on_delete=models.CASCADE, default=None, unique=False) 
+    participant = models.ForeignKey(User, on_delete=models.CASCADE, unique=False, null=True, blank=True)
+    competition = models.ForeignKey(Competition, on_delete=models.CASCADE, default=None, unique=False, null=True, blank=True) 
     
     def test_length(self, size, fieldToTest):
         return(len(fieldToTest) <= size)
+    
 
 class Support_Request(models.Model):
     NAME_MAX_LENGTH = 128

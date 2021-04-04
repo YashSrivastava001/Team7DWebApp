@@ -2,9 +2,10 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from designmytee.models import Competition, Designer, Submission
 from django.template import RequestContext
-from designmytee.forms import CustomSignupForm, FeedbackForm
+from designmytee.forms import CustomSignupForm, FeedbackForm, SubmissionForm
 from django.shortcuts import redirect
 from django.contrib.auth import get_user
+from datetime import date
 
 # Create your views here.
 
@@ -48,8 +49,11 @@ def myprofile(request):
 
 def results(request):
     winners_list = Designer.objects.all()
+    
+    closed_competitions_list = Competition.objects.all()
     context_dict = {}
-    context_dict['Winners'] = winners_list
+    context_dict['closed_competitions'] = closed_competitions_list
+
     return render(request, 'designmytee/results.html', context = context_dict)
 
 def competitions(request):
@@ -73,6 +77,28 @@ def show_competition(request, competition_name_slug):
         submission_list = Submission.objects.filter(competition=competition)
 
         context_dict['submissions'] = submission_list
+        
+
+        form = SubmissionForm
+
+        
+
+        context_dict['form'] = form
+
+        if request.method == 'POST':
+            
+            form = SubmissionForm(request.POST , request.FILES)
+            if form.is_valid():
+                instance = form.save(commit=False)
+                instance.competition = competition
+                instance.participant = request.user
+                instance.save()
+
+               
+                return redirect('/designmytee/')
+            else:
+                print(form.errors)
+
 
     except Competition.DoesNotExist:
         context_dict['competition'] = None

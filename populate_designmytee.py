@@ -135,87 +135,87 @@ def populate():
     
     python_Submissions = [
         {'votes': 12,
-         'participant': 4,
+         'participant': 'Ö7',
          'submissionDescription': 'Its a tiger, imagine a cat but like REALLY big',
          'designImage': "submission_images/submission_1_4.jpg",
          'competition': 1
          },
         {'votes': 22,
-         'participant': 2,
+         'participant': 'Simon1212',
          'submissionDescription': 'puppy!',
          'designImage': "submission_images/submission_1_2.jpg",
          'competition': 1
          },
         {'votes': 1,
-         'participant': 3,
+         'participant': 'boom673',
          'submissionDescription': 'Is this google',
          'designImage': "submission_images/submission_1_3.jpg",
          'competition': 1
          },
         {'votes': 72,
-         'participant': 1,
+         'participant': 'John212',
          'submissionDescription': 'Idk its sitting funny what else do you want',
          'designImage': "submission_images/submission_1_1.png",
          'competition': 1
          },
         {'votes': 32,
-         'participant': 5,
+         'participant': 'PaulJog',
          'submissionDescription': 'My favourite TV show! made the design myself....',
          'designImage': "submission_images/submission_2_5.jpg",
          'competition': 2
          },
         {'votes': 22,
-         'participant': 6,
+         'participant': 'timtom',
          'submissionDescription': 'The best Netflix series! cant wait for the next season!',
          'designImage': "submission_images/submission_2_6.png",
          'competition': 2
          },
         {'votes': 321,
-         'participant': 7,
+         'participant': 'user444',
          'submissionDescription': 'Greatest video game character of all time!',
          'designImage': "submission_images/submission_3_7.jpg",
          'competition': 3
          },
         {'votes': 222,
-         'participant': 8,
+         'participant': 'designer234',
          'submissionDescription': 'The most popular video game of all time! I made this using photoshop',
          'designImage': "submission_images/submission_3_8.jpeg",
          'competition': 3
          },
         {'votes': 22,
-         'participant': 5,
+         'participant': 'PaulJog',
          'submissionDescription': 'This is my home city! I love it very much',
          'designImage': "submission_images/submission_4_5.jpg",
          'competition': 4
          },
         {'votes': 262,
-         'participant': 3,
+         'participant': 'boom673',
          'submissionDescription': 'I visited here last year... it was amazing!',
          'designImage': "submission_images/submission_4_3.jpg",
          'competition': 4,
          'winner': True
          },
         {'votes': 421,
-         'participant': 1,
+         'participant': 'John212',
          'submissionDescription': 'I love space! I have always dreamed of visiting the moon!',
          'designImage': "submission_images/submission_5_1.jpg",
          'competition': 5
          },
         {'votes': 174,
-         'participant': 6,
+         'participant': 'timtom',
          'submissionDescription': 'FOOD IN SPACE!!!!!!',
          'designImage': "submission_images/submission_5_6.jpg",
          'competition': 5,
          'winner': True
          },
         {'votes': 7,
-         'participant': 2,
+         'participant': 'Simon1212',
          'submissionDescription': 'I visited here last year, I would love to go again! it looks lovely on the map!',
          'designImage': "submission_images/submission_6_2.jpg",
          'competition': 6
          },
         {'votes': 22,
-         'participant': 4,
+         'participant': 'Ö7',
          'submissionDescription': 'Austrailia is great, what a massive country!',
          'designImage': "submission_images/submission_6_4.jpg",
          'competition': 6
@@ -285,7 +285,7 @@ def add_Submission(participant, submissionDescription, designImage, competition,
     if votes == None:
         votes = 0
     c = Competition.objects.get(id=competition)
-    d = Designer.objects.get(id=participant)
+    d = User.objects.get(username=participant)
     
     s = Submission.objects.get_or_create(votes=votes, participant=d, submissionDescription=submissionDescription, designImage=designImage, competition=c)[0]
     s.votes=votes
