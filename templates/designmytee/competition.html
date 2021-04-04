@@ -1,0 +1,76 @@
+{% extends 'designmytee/base.html' %}
+{% load staticfiles %} <!-- New line -->
+{% block title_block %}
+    {% if competition %}
+    {{ competition.title }}
+    {% endif %}
+{% endblock %}
+
+{% block body_block %}
+
+
+<div class="heading">
+		
+    <h1 class="compHeading text-center">{{ competition.title }}</h1>
+    
+</div>
+    
+<h1 class="sub-text text-center sub-text-comp">{{ competition.competitionDescription }}</h1>
+
+
+<div class="img-comp text-center">
+    <img src="{{ MEDIA_URL }}{{ competition.competitionImage }}" class="img-fluid rounded mx-auto d-block " alt="...">
+</div>
+<hr class="new5">
+
+<h3 class="sub-text text-center">Submission Deadline: {{ competition.endDate }}</competitoin></h3>
+
+<h3 class="sub-text text-center">Ready for submission? Submit Below!</competitoin></h3>
+
+
+{% if user.is_authenticated %}
+    <div>
+        <form id="{{ competition.title }}" class= 'required' method="post">
+            <input type="file" id="submission-file" hidden="hidden" />
+            <div class="text-center">
+                <button type="button" id="custom-button">CHOOSE A FILE</button>
+            <span id="custom-text">No file chosen, yet.</span>
+            </div> 
+        </form> 
+    </div>
+{% else %}
+    <div class="text-center sub-text-comp">
+        <h1 class="sub-text">You need to sign Up to Participate!</h1> 
+        <a href="{% url 'designmytee:account_login' %}" class="btn btn-outline-dark btn-lg" role="button">Sign In</a>
+        <br><br><br><br><br><br>
+    </div>
+   
+{% endif %}
+
+<h1 class="sub-text text-center">Not Done Yet?? GET YOUR COFFEE AND START DESIGNING!</h1> 
+
+<div>
+    <div class="container-1">
+        <div class="coffee-header">
+          <div class="coffee-header__buttons coffee-header__button-one"></div>
+          <div class="coffee-header__buttons coffee-header__button-two"></div>
+          <div class="coffee-header__display"></div>
+          <div class="coffee-header__details"></div>
+        </div>
+        <div class="coffee-medium">
+          <div class="coffe-medium__exit"></div>
+          <div class="coffee-medium__arm"></div>
+          <div class="coffee-medium__liquid"></div>
+          <div class="coffee-medium__smoke coffee-medium__smoke-one"></div>
+          <div class="coffee-medium__smoke coffee-medium__smoke-two"></div>
+          <div class="coffee-medium__smoke coffee-medium__smoke-three"></div>
+          <div class="coffee-medium__smoke coffee-medium__smoke-for"></div>
+          <div class="coffee-medium__cup"></div>
+        </div>
+        <div class="coffee-footer"></div>
+      </div>    
+</div>
+
+<script src="/static/sub.js"></script>
+
+{% endblock %}

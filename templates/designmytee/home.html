@@ -20,8 +20,12 @@
     		<div class="carousel-item active">
       			<img class="img-fluid rounded mx-auto d-block" src="{% static 'images/homepage-cover.jpeg' %}" class="d-block w-100" alt="">
       			<div class="carousel-caption d-none d-md-block">
+      				{% if user.is_authenticated %}
+      				<h1 class="carousel-text">Hi, {{ user.username }}!</h1>
+      				{% else %}
         			<h1 class="carousel-text">Join Us Today!</h1>
-        			<button type="button" class="btn btn-outline-light btn-lg">Sign In</button>
+        			<a href="{% url 'designmytee:account_login' %}" class="btn btn-outline-light btn-lg" role="button">Sign In</a>
+        			{% endif %}
 
       			</div>
     		</div>
@@ -66,19 +70,25 @@
 	</div>
 
 
-	<div class="card-grid">
-		<div class="row row-cols-1 row-cols-md-3 g-4">
-  			<div class="col">
-    			<div class="card">
-      				<img class="card-img" src="{% static 'images/competition.jpg' %}" class="card-img-top" alt="...">
-      				<div class="card-body">
-        			<h5 class="card-title">Card title</h5>
-        			<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        			<button type="button" class="btn btn-outline-dark btn-lg">Participate</button>
-      			</div>
-    		</div>
-  		</div>
-		</div>
+	
+
+	<div class="container mt-4">
+    <div class="row">
+    	{% for competition in competitions %}
+        <div class="col-auto mb-3">
+            <div class="card">
+                <div class="card-body">
+                	<img class="card-img-top" src="{{ MEDIA_URL }}{{ competition.competitionImage }}" alt="Competition Image">
+                    <h5 class="card-title">{{ competition.title }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Deadline: {{competition.endDate }}</h6>
+                    <p class="card-text">{{ competition.competitionDescription }}</p>
+                    <a href="/designmytee/competition/{{ competition.slug }}/" class="btn btn-outline-dark btn-lg">Participate</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
 	</div>
 	
 	

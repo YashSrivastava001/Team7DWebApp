@@ -14,4 +14,4 @@ realFileBtn.addEventListener("change", function() {
   } else {
     customTxt.innerHTML = "No file chosen, yet.";
   }
-}); 
+
