@@ -24,3 +24,4 @@ function allowVote () {
   alert("Vote Added!");
 }
 
+

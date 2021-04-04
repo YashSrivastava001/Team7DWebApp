@@ -47,7 +47,10 @@ def myprofile(request):
     return render(request, 'designmytee/myprofile.html', context=context_dict)
 
 def results(request):
-    return render(request, 'designmytee/results.html')
+    winners_list = Designer.objects.all()
+    context_dict = {}
+    context_dict['Winners'] = winners_list
+    return render(request, 'designmytee/results.html', context = context_dict)
 
 def competitions(request):
     competitions_list = Competition.objects.all()
