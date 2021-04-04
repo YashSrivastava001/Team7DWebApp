@@ -1,6 +1,7 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
+from random import random, seed
 
 class Designer(models.Model):
     
@@ -21,15 +22,19 @@ class Competition(models.Model):
     competitionImage = models.ImageField(upload_to='competition_images/', blank=True) # optional field
     startDate = models.DateField()
     endDate = models.DateField()
+    luckyDrawWinner = models.ForeignKey(User, on_delete=models.CASCADE, unique=False, null=True, blank=True)
     
     expiryDate = models.DateField(default=None)
     competitionWinner = models.OneToOneField("Submission", related_name="competition_Winner", on_delete=models.CASCADE, default=None, unique=False, null=True) # Submission is in quotes as it is not defined yet
 
     
     slug = models.SlugField(unique=True, default=None)
+    
+        
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
         super(Competition, self).save(*args, **kwargs)
+    
 
     class Meta:
         verbose_name_plural = 'competitions'
