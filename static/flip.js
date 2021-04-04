@@ -17,8 +17,8 @@ function myFunction2() {
 function myFunction3() {
   var x = document.getElementById("myDIV3");
   if (x.innerHTML === "Click to know the winner of the Lucky Draw!") {
-    x.innerHTML = "Barry Gibson!";
+    x.innerHTML = "{{ competition.competitionWinner }}";
   } else {
-    x.innerHTML = "Barry Gibson!";
+    x.innerHTML = "{{ competition.competitionWinner }}";
   }
 }

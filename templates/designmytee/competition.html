@@ -29,15 +29,16 @@
 
 
 {% if user.is_authenticated %}
-    <div>
-        <form id="{{ competition.title }}" class= 'required' method="post">
-            <input type="file" id="submission-file" hidden="hidden" />
-            <div class="text-center">
-                <button type="button" id="custom-button">CHOOSE A FILE</button>
-            <span id="custom-text">No file chosen, yet.</span>
-            <input type="submit" name="submit" value="Submit" />
-            </div> 
-        </form> 
+    <div class="text-center submit-form">
+
+        <form method="POST" enctype="multipart/form-data">
+            
+            {% csrf_token %}
+            <table>
+                {{ form.as_p }}
+            </table>
+            <input type="submit" class="btn btn-outline-dark btn-lg" name="register">
+            
     </div>
 {% else %}
     <div class="text-center sub-text-comp">
@@ -87,7 +88,7 @@
             <div class="card">
                 <div class="card-body">
                 	<img class="card-img-top" src="{{ MEDIA_URL }}{{ submission.designImage }}" alt="Competition Image">
-                    <h5 class="card-title">Submission by {{ submission.participant.user.username }}</h5>
+                    <h5 class="card-title">Submission by {{ submission.participant }}</h5>
                     <h6 class="card-subtitle mb-2 text-muted">Votes: {{ submission.votes }}</h6>
                     <p class="card-text">{{ submission.submissionDescription }}</p>
                     {% if user.is_authenticated %}

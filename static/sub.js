@@ -24,4 +24,15 @@ function allowVote () {
   alert("Vote Added!");
 }
 
-
+$(document).ready(function() {
+  $('#vote_btn').click(function() {
+  var subsubmissionIdVar;
+  subsubmissionIdVar = $(this).attr('data-categoryid');
+  $.get('/designmytee/vote_submission/',
+  {'submission_id': subsubmissionIdVar},
+  function(data) {
+  $('#vote_count').html(data);
+  $('#vote_btn').hide();
+  })
+  });
+  });

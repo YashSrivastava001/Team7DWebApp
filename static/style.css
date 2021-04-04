@@ -204,6 +204,10 @@ hr.new5 {
   color: #aaa;
 }
 
+.submit-form{
+  margin-bottom: 20px;
+}
+
 /* Coffee */
 
 .container-1 {
@@ -466,8 +470,6 @@ hr.new5 {
 }
 
 
-<<<<<<< Updated upstream
-=======
 /* Competition submission */
 
 #custom-button {
@@ -494,19 +496,7 @@ hr.new5 {
 }
 @import url(https://fonts.googleapis.com/css?family=Raleway);
 
-*, *:before, *:after{
-  margin: 0;
-  padding: 0;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing:border-box;
-  box-sizing: border-box;
-}
 
-body{
-  background: #f9f9f9;
-  font-size: 16px;
-  font-family: 'Raleway', sans-serif;
-}
 body1{
   background: #f9f9f9;
   font-size: 16px;
@@ -520,7 +510,7 @@ body1{
   padding: 0.7em 0;
 }
 
-.container{
+.container-2{
   padding: 1em 0;
   float: left;
   width: 50%;
@@ -533,12 +523,12 @@ body1{
 }
 
 @media screen and (min-width: 900px){
-  .container{
+  .container-2{
     width: 33.33333%;
   }
 }
 
-.container .title{
+.container-2 .title{
   color: #1a1a1a;
   text-align: center;
   margin-bottom: 10px;
@@ -640,7 +630,6 @@ body1{
 
 
 
->>>>>>> Stashed changes
 
 
 

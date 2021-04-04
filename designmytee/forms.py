@@ -1,6 +1,6 @@
 from allauth.account.forms import SignupForm
 from django import forms
-from designmytee.models import Designer,Support_Request
+from designmytee.models import Designer,Support_Request, Submission
 from django.core.exceptions import ValidationError
  
 class CustomSignupForm(SignupForm):
@@ -77,3 +77,18 @@ class FeedbackForm(forms.ModelForm):
         # Provide an association between the ModelForm and a model
         model = Support_Request
         fields = ('firstName','lastName','contactNumber','contactEmail','suggestionsOrFeedback')
+
+
+
+class SubmissionForm(forms.ModelForm):
+    designImage = forms.ImageField()
+    submissionDescription = forms.CharField(max_length=Submission.DESCRIPTION_MAX_LENGTH,)
+    votes = forms.IntegerField(widget=forms.HiddenInput(), initial=0, required=False)
+    winner = forms.BooleanField(widget=forms.HiddenInput(), initial=False, required=False) 
+    
+
+    class Meta:
+        # Provide an association between the ModelForm and a model
+        model = Submission
+        fields = ('designImage','submissionDescription', 'competition', 'participant')
+        widgets = {'competition': forms.HiddenInput(), 'participant': forms.HiddenInput()}

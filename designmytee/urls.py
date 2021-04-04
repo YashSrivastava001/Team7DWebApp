@@ -1,6 +1,8 @@
 from django.urls import path
 from designmytee import views
 from allauth.account.views import LoginView, SignupView, LogoutView,  PasswordResetView, EmailView
+from django.conf import settings
+from django.conf.urls.static import static
 
 app_name = 'designmytee'
 
@@ -19,4 +21,6 @@ urlpatterns = [
     path('password/reset/', PasswordResetView.as_view(), name='account_reset_password'),
     path('myprofile/email/', EmailView.as_view(), name='account_email'),
     
-]
+    
+    
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
