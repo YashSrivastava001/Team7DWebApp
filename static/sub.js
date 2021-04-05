@@ -24,6 +24,7 @@ function allowVote () {
   alert("Vote Added!");
 }
 
+
 $(document).ready(function() {
   $('#vote_btn').click(function() {
   var subsubmissionIdVar;
