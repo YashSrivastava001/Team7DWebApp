@@ -102,6 +102,13 @@ h2.carousel-text{
   padding-top: 20px;
 }
 
+.row{
+  margin: auto;
+  width: auto;
+  
+}
+
+
 
 
 @media (max-width: 858px){
@@ -155,7 +162,7 @@ h1.compHeading{
 .card{
   width: 18rem;
   height: 30rem;
-  margin: 20px 20px 20px 20px;
+  margin: auto;
 }
 
 .card-img-top{
