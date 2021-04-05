@@ -11,7 +11,6 @@ class Designer(models.Model):
      picture = models.ImageField(upload_to='profile_images/', blank=True, default='images/homepage-cover.jpeg') # optional field
      participations = models.IntegerField(default=0, null=True)
      wins = models.IntegerField(default=0, null=True)
-     
 
     
 class Competition(models.Model):
@@ -81,3 +80,8 @@ class Support_Request(models.Model):
     
 class ItemVideo(models.Model):
     video = EmbedVideoField()
+
+
+class Vote(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    submission = models.ForeignKey(Submission, on_delete=models.CASCADE, related_name='voter')

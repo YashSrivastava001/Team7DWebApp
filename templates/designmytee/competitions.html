@@ -1,9 +1,105 @@
 {% extends 'designmytee/base.html' %}
-{% load staticfiles %} <!-- New line -->
+{% load staticfiles %}
+<!-- New line -->
 {% block title_block %}
-    Competitions
+Competitions
 {% endblock %}
 
 {% block body_block %}
 
-{% endblock %}
+<div class="heading">
+
+    <h1 class="compHeading text-center">COMPETITIONS</h1>
+
+</div>
+<div class="box">
+    <div class="card-1">
+        <div class="imgBx">
+            <img src="{% static 'images/participate.jpg' %}" alt="images">
+        </div>
+        <div class="details">
+            <a href="#participate" class="btn btn-outline-dark btn-lg" role="button">GO!</a>
+        </div>
+    </div>
+
+    <div class="card-1">
+        <div class="imgBx">
+            <img src="{% static 'images/vote.jpg' %}" alt="images">
+        </div>
+        <div class="details">
+            <a href="#vote" class="btn btn-outline-dark btn-lg" role="button">GO!</a>
+        </div>
+    </div>
+
+    <div class="card-1">
+        <div class="imgBx">
+            <img href="{% url 'designmytee:results' %}" src="{% static 'images/result.jpg' %}" alt="images">
+        </div>
+        <div class="details">
+            <a href="{% url 'designmytee:results' %}" class="btn btn-outline-dark btn-lg" role="button">GO!</a>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+        <div class="heading">
+
+            <h1 class="compSubHeading text-center">Participate Here!</h1>
+
+        </div>
+
+        <div class="container mt-4" id="participate">
+            <div class="row">
+                {% for competition in participation_competitions %}
+                <div class="col-auto mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <img class="card-img-top" src="{{ MEDIA_URL }}{{ competition.competitionImage }}"
+                                alt="Competition Image">
+                            <h5 class="card-title">{{ competition.title }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Deadline: {{competition.endDate }}</h6>
+                            <p class="card-text">{{ competition.competitionDescription }}</p>
+                            <a href="/designmytee/competition/{{ competition.slug }}/"
+                                class="btn btn-outline-dark btn-lg">Participate/ Vote</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                </div>
+                </div>
+
+
+                <div class="heading">
+
+                    <h1 class="compSubHeading text-center">Vote Here!</h1>
+                
+                </div>
+
+                <div class="container mt-4" id="vote">
+                    <div class="row">
+                        {% for competition in voting_competitions %}
+                        <div class="col-auto mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <img class="card-img-top" src="{{ MEDIA_URL }}{{ competition.competitionImage }}"
+                                        alt="Competition Image">
+                                    <h5 class="card-title">{{ competition.title }}</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">Deadline: {{competition.endDate }}</h6>
+                                    <p class="card-text">{{ competition.competitionDescription }}</p>
+                                    <a href="/designmytee/competition/{{ competition.slug }}/"
+                                        class="btn btn-outline-dark btn-lg">Participate/ Vote</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        </div>
+                        </div>
+                        
+                {% endblock %}
+
+                
+                

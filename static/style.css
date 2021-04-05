@@ -138,8 +138,13 @@ h1.compHeading{
     border-width: 2px;
     border-color: black;
   }
+
+
 }
 
+.con{
+  height: 50vh;
+}
 
 /* Cards */
 
@@ -469,6 +474,12 @@ hr.new5 {
   background-color: #000;
 }
 
+.container-3{
+  max-width: 45%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 
 /* Competition submission */
 
@@ -514,6 +525,11 @@ body1{
   padding: 1em 0;
   float: left;
   width: 50%;
+}
+
+.win-img{
+  width: 18rem;
+  height: auto;
 }
 @media screen and (max-width: 640px){
   .container{
@@ -626,6 +642,87 @@ body1{
   color: white;
 }
 
+
+/* css for competitions page */
+
+.box{
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-gap: 15px;
+  margin: 0 auto;
+}
+
+.compSubHeading{
+  font-size: 6vh;
+}
+
+.card-1{
+  position: relative;
+  width: 300px;
+  height: 350px;
+  background: #fff;
+  margin: 0 auto;
+  border-radius: 4px;
+  box-shadow:0 2px 10px rgba(0,0,0,.2);
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.card-1:before,
+.card-1:after
+{
+  content:"";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  background: #fff;
+  transition: 0.5s;
+  z-index:-1;
+}
+.card-1:hover:before{
+transform: rotate(20deg);
+box-shadow: 0 2px 20px rgba(0,0,0,.2);
+}
+.card-1:hover:after{
+transform: rotate(10deg);
+box-shadow: 0 2px 20px rgba(0,0,0,.2);
+}
+.card-1 .imgBx{
+position: absolute;
+top: 10px;
+left: 10px;
+bottom: 10px;
+right: 10px;
+background: #222;
+transition: 0.5s;
+z-index: 1;
+}
+
+.card-1:hover .imgBx
+{
+  bottom: 80px;
+}
+
+.card-1 .imgBx img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-1 .details{
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    height: 60px;
+    text-align: center;
+}
 
 
 
