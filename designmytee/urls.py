@@ -22,6 +22,9 @@ urlpatterns = [
     path('myprofile/email/', EmailView.as_view(), name='account_email'),
     path('designerProfile/<slug:designer_slug>/',
         views.show_designer_profile, name='show_designer_profile'),
+    path('vote_submission/', views.VoteSubmissionView.as_view(), name='vote_submission'),
+    
+
     
     
     

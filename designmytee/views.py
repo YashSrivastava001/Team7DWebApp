@@ -1,10 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from designmytee.models import Competition, Designer, Submission, ItemVideo
+from django.views.generic import View
+from django. contrib import messages
+from designmytee.models import Competition, Designer, Submission, ItemVideo, Vote
 from django.template import RequestContext
 from designmytee.forms import CustomSignupForm, FeedbackForm, SubmissionForm
 from django.shortcuts import redirect
 from django.contrib.auth import get_user
+from django.shortcuts import get_object_or_404
 from datetime import date
 import random
 
@@ -111,8 +114,15 @@ def competitions(request):
     # below query set filters out competition that have not started yet, and competitions that have finished (closed for voting and submissions)
     
     competitions_list = Competition.objects.filter(expiryDate__range=[start, end], startDate__range=[start2, start]).order_by('expiryDate')
+    participation_competitions = Competition.objects.filter(endDate__range=[start, end], startDate__range=[start2, start]).order_by('expiryDate')
+    voting_competitions = Competition.objects.filter(endDate__range=[start2, start]).order_by('expiryDate')
+
+    featured_competition = Competition.objects.filter(expiryDate__range=[start, end], startDate__range=[start2, start]).order_by('expiryDate')[:1]
     
-    context_dict['competitions'] = competitions_list
+    context_dict['participation_competitions'] = participation_competitions
+    context_dict['featured_competition'] = featured_competition
+    context_dict['voting_competitions'] = voting_competitions
+
     return render(request, 'designmytee/competitions.html', context=context_dict)
 
 def show_competition(request, competition_name_slug):
@@ -179,3 +189,31 @@ def show_designer_profile(request, designer_slug):
     return render(request, 'designmytee/designerProfile.html', context=context_dict)
 
 
+
+
+class VoteSubmissionView(View):
+    def get(self, request):
+        submission_id = request.GET['submission_id']
+        try:
+            submission = Submission.objects.get(id=int(submission_id))
+
+        except Submission.DoesNotExist:
+            return HttpResponse(-1)
+
+        except Vote.DoesNotExist:
+            return HttpResponse(-1)
+
+        except ValueError:
+            return HttpResponse(-1)
+        
+        user_voted = submission.voter.filter(user=request.user).exists()
+        if not user_voted:
+            Vote.objects.create(user = request.user, submission=submission)
+            submission.votes = submission.votes + 1
+            submission.save()
+            return HttpResponse(submission.votes)
+                
+        if user_voted:
+            messages.error(request, "You Have Already Voted For This Submission!!!")
+            return redirect('/designmytee/')
+        

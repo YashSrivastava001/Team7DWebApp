@@ -18,7 +18,6 @@
   <p> This competition was held from {{ competition.startDate }}, to {{ competition.endDate }}.
   <br>
   Hover over the winning design below, to know the winner of the competition.
-  <br> The winner for the lucky draw for this competition is: {{ competition.luckyDrawWinner.username }}
   </p>
   </hr>
   
@@ -44,11 +43,12 @@
 
 
 <h3> <i><b>Winners Of The Lucky Draw</b></i></h3>
-<button onclick="myFunction1()" class="button button2">Click to know the winner of the Lucky Draw for the TV Shows Design Competition! </button>
-<div id="myDIV">Many Congratulations To</div>
-<br><button onclick="myFunction2()" class="button button2">Click to know the winner of the Lucky Draw for the Space Design Competition! </button>
-<div id="myDIV2">Many Congratulations To</div>
+<div id="myDIV">Many Congratulations To:</div>
+<button data-luckyWinner="{{ competition.luckyDrawWinner.username }}" class="button button2 luckyWin">Click to know the winner of the Lucky Draw for the {{ competition.title }} Competition! </button>
+
 <hr>
-<script src = "{%static 'flip.js' %}"></script>
+{% endfor %}
+
+
 {% endblock %}
 	

@@ -11,12 +11,18 @@
 			<header class="text-center col-12">
 				<div class="row">
 				<div class="container">
-				<h1> About Us</h1>
+					<div class="heading">
+
+						<h1 class="compHeading text-center">About Us!</h1>
+					
+					</div>
 			</header>
 			<hr class="shadow">
-					<div class="coverImage">
-		<img src="{% static 'images/cover-about.gif' %}" class="coverImg img-fluid rounded mx-auto d-block" alt="Cover">
+					<div class="coverImage text-center">
+		<img src="{% static 'images/about-us.jpg' %}" class="coverImg img-fluid rounded mx-auto d-block" alt="Cover">
+		<div class="container-3">
 			<h3> What is it all about? </h3>
+			
 			The Design My Tee Competition is a freestyle design competition open to both concept stage and realized works designed by professional and young fashion designers, tailors, stylists, fashion design companies and other business in this industry worldwide.
 			<br>
 			<br>  
@@ -42,10 +48,20 @@
 			<br>
 			If the competition is closed... dont worry! you can still get involved by submiting your vote for your favourite design!
 			<br>
+			
+			
+		</div>
+		</div>
+		</p>
+		<div class="text-center con">
 			{% for vid in item_video %}
-				
-				{% video vid.video "small" %}
-			{% endfor %}
+			
+			{% video vid.video "50% x 66%" %}
+		{% endfor %}
+		</div>
+	
+			
+			
 			<br>
 			<hr class="shadow">
 		</div>
