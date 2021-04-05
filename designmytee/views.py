@@ -115,10 +115,7 @@ def show_competition(request, competition_name_slug):
     try:
     
         competition = Competition.objects.get(slug=competition_name_slug)
-       
-        
         context_dict['competition'] = competition
-        
         # sets the voteOpen boolean value to either true or false, as it is used to control what elements the user can see
         # (If true, then the user cannot submit and only vote, if False then the user can submit but not vote)
         
@@ -129,14 +126,10 @@ def show_competition(request, competition_name_slug):
             
         context_dict['voteOpen'] = voteOpen
         submission_list = Submission.objects.filter(competition=competition)
-
-        context_dict['submissions'] = submission_list
         
+        context_dict['submissions'] = submission_list
 
         form = SubmissionForm
-
-        
-
         context_dict['form'] = form
 
         if request.method == 'POST':
@@ -162,4 +155,5 @@ def show_competition(request, competition_name_slug):
 
     # Go render the response and return it to the client.
     return render(request, 'designmytee/competition.html', context=context_dict)
+
 

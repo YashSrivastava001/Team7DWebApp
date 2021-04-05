@@ -81,7 +81,7 @@ class FeedbackForm(forms.ModelForm):
 
 
 class SubmissionForm(forms.ModelForm):
-    designImage = forms.ImageField()
+    designImage = forms.ImageField(help_text="Please upload your design:")
     submissionDescription = forms.CharField(max_length=Submission.DESCRIPTION_MAX_LENGTH,)
     votes = forms.IntegerField(widget=forms.HiddenInput(), initial=0, required=False)
     winner = forms.BooleanField(widget=forms.HiddenInput(), initial=False, required=False) 
