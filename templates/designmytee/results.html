@@ -26,11 +26,17 @@ Results
         <div class="content-overlay"></div>
         <img class="content-image" src="{{ MEDIA_URL }}{{ competition.competitionWinner.designImage }}">
         {% for designer in winningDesigners %}
-        {% if competition.competitionWinner.participant == designer.user %}
-        <div class="content-details fadeIn-top">
-          <h3>The winner of the competition is <b><a href="/designmytee/designerProfile/{{ designer.slug }}/">{{ competition.competitionWinner.participant }}</b></i></h3>
-        </div>
-        {% endif %}
+          {% if competition.competitionWinner.participant == designer.user %}
+            {% if designer.user == user  %}
+            <div class="content-details fadeIn-top">
+              <h3>The winner of the competition is <b><a href="/designmytee/myprofile/">{{ competition.competitionWinner.participant }}</b></i></h3>
+            </div>
+            {% else %}
+            <div class="content-details fadeIn-top">
+              <h3>The winner of the competition is <b><a href="/designmytee/designerProfile/{{ designer.slug }}/">{{ competition.competitionWinner.participant }}</b></i></h3>
+            </div>
+            {% endif %}
+          {% endif %}
         {% endfor %}
       </a>
 
