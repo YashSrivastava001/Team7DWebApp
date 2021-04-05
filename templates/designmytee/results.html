@@ -21,19 +21,28 @@
   <br> The winner for the lucky draw for this competition is: {{ competition.luckyDrawWinner.username }}
   </p>
   </hr>
-  <div class="content">
-    <a href="{{ MEDIA_URL }}{{ competition.competitionWinner.designImage }}" target="_blank">
-      <div class="content-overlay"></div>
-      <img class="content-image" src="{{ MEDIA_URL }}{{ competition.competitionWinner.designImage }}">
-      <div class="content-details fadeIn-top">
-        <h3>The winner of the competition is <b><i>{{ competition.competitionWinner.participant }}</b></i></h3>
-      </div>
-    </a>
-  </div>
+  
+    <div class="content">
+      <a href="{{ MEDIA_URL }}{{ competition.competitionWinner.designImage }}" target="_blank">
+        <div class="content-overlay"></div>
+        <img class="content-image" src="{{ MEDIA_URL }}{{ competition.competitionWinner.designImage }}">
+        {% for designer in winningDesigners %}
+        {% if competition.competitionWinner.participant == designer.user %}
+          <div class="content-details fadeIn-top">
+            <h3>The winner of the competition is <b><a href="/designmytee/designerProfile/{{ designer.slug }}/">{{ competition.competitionWinner.participant }}</b></i></h3>
+          </div>
+        {% endif %}
+        {% endfor %}
+      </a>
+    </div>
+    
+
 </div>
 <br>
 <hr>
 {% endfor %}
+
+
 <h3> <i><b>Winners Of The Lucky Draw</b></i></h3>
 <button onclick="myFunction1()" class="button button2">Click to know the winner of the Lucky Draw for the TV Shows Design Competition! </button>
 <div id="myDIV">Many Congratulations To</div>

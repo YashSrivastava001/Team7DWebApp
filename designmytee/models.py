@@ -6,13 +6,19 @@ from embed_video.fields import EmbedVideoField
 
 class Designer(models.Model):
     
-     user = models.OneToOneField(User, on_delete=models.CASCADE, default=None, unique=True)
-     
-     picture = models.ImageField(upload_to='profile_images/', blank=True, default='images/homepage-cover.jpeg') # optional field
-     participations = models.IntegerField(default=0, null=True)
-     wins = models.IntegerField(default=0, null=True)
-     
+    user = models.OneToOneField(User, on_delete=models.CASCADE, default=None, unique=True)
 
+    picture = models.ImageField(upload_to='profile_images/', blank=True, default='images/homepage-cover.jpeg') # optional field
+    participations = models.IntegerField(default=0, null=True)
+    wins = models.IntegerField(default=0, null=True)
+
+    slug = models.SlugField(unique=True, default=None)
+
+    
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.user.id)
+        print(self.slug)
+        super(Designer, self).save(*args, **kwargs)
     
 class Competition(models.Model):
     DESCRIPTION_MAX_LENGTH = 200
@@ -58,7 +64,7 @@ class Submission(models.Model):
     submissionDescription = models.CharField(max_length=DESCRIPTION_MAX_LENGTH, default=None)
     votes = models.IntegerField(default=0)
     winner = models.BooleanField(default=False) 
-    participant = models.ForeignKey(Designer, on_delete=models.CASCADE, unique=False, null=True, blank=True)
+    participant = models.ForeignKey(User, on_delete=models.CASCADE, unique=False, null=True, blank=True)
     competition = models.ForeignKey(Competition, on_delete=models.CASCADE, default=None, unique=False, null=True, blank=True) 
     
     def test_length(self, size, fieldToTest):
