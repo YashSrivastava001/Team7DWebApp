@@ -86,16 +86,18 @@ def show_competition(request, competition_name_slug):
         context_dict['form'] = form
 
         if request.method == 'POST':
-            
             form = SubmissionForm(request.POST , request.FILES)
             if form.is_valid():
-                instance = form.save(commit=False)
-                instance.competition = competition
-                instance.participant = request.user
-                instance.save()
-
-               
-                return redirect('/designmytee/')
+                participant = Designer.objects.get(user=request.user).user
+                noOfSubmissions = Submission.objects.filter(competition=competition, participant=participant).count()
+                if (noOfSubmissions < 1):
+                    instance = form.save(commit=False)
+                    instance.competition = competition
+                    instance.participant = participant
+                    instance.save()
+                    return redirect('/designmytee/')
+                else:
+                    return redirect('/designmytee/competitions/')
             else:
                 print(form.errors)
 
