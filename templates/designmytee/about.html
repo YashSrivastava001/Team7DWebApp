@@ -1,6 +1,7 @@
 
 {% extends 'designmytee/base.html' %}
 {% load staticfiles %} 
+{% load embed_video_tags %}
 {% block title_block %}
    About
 {% endblock %}
@@ -22,17 +23,32 @@
 			<br>  
 			<img src="{% static 'images/Register-Now.jpg' %}" class="coverImg img-fluid rounded mx-auto d-block" alt="Cover">
 			<h3> How to participate in a competition? </h3>
-			This gives you chance to create your own design on a t-shirt and compete with other designers in a variety of competitions. ​The competitions are held and uploaded regularly and last a certain number of days.For more details on these competitions please refer to the competitions tab. ​
+			A competition gives you chance to create your own design on a t-shirt to compete with other designers in a variety of competitions. ​The competitions are held and uploaded regularly and last a certain number of days. For more details on these competitions please refer to the competitions tab. ​
 			<br>
-			Designers who want to be a part of the competition can upload their t-shirt design within this window, after which submissions are closed. ​All logged-in users can vote on the designs and the design with the highest number of votes wins. ​All the people who voted are automatically added into a lucky draw and someone is randomly selected to be sent a copy of the printed t-shirt with the winning competition design. ​
+			<br>
+			Designers who want to be a part of a competition can upload their t-shirt design within this window, after which submissions are closed. ​All logged-in users can vote on the designs and the design with the highest number of votes wins. ​All designers are automatically added into a lucky draw and someone is randomly selected to be sent a copy of the printed t-shirt with the winning competition design. ​
+			<br>
+			<br>
+			<h3> Do I have to be a designer to participate? </h3>
+			No you dont! even if you are a T-shirt fan and just love to see other peoples designs you can vote and still be entered into the lucky draw!
+			<br>
+			<br>
+			<h3> How does the designing system work? </h3>
+			Simply create your fantastic design and save it as any standard file format, standard .jpg, .jpeg and .png formats will do but a full list of accepted file formts can e found in the link below!
+			<br>
+			<a href="https://pillow.readthedocs.io/en/stable/handbook/image-file-formats.html"> Click here for list of accepted file types</a>
+			<br>
+			Then procede to our competitions page and choose the competition you want to submit for, if the competition is still open for submissions simply enter your submission!
+			<br>
+			If the competition is closed... dont worry! you can still get involved by submiting your vote for your favourite design!
+			<br>
+			{% for vid in item_video %}
+				
+				{% video vid.video "small" %}
+			{% endfor %}
+			<br>
 			<hr class="shadow">
 		</div>
-		<h3> Quick-Help Links</h3>
-		<div>
-<a href="% 'designmytee/competitions.html' %" class="btn btn-primary">How to Submit</a> 
-<a href="% 'designmytee/help.html' %" class="btn btn-primary">Rules</a>
-</div>
-		
 		</p>	
 		</div>
 		

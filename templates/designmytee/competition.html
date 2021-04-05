@@ -23,16 +23,21 @@
 </div>
 <hr class="new5">
 
-<h3 class="sub-text text-center">Submission Deadline: {{ competition.endDate }}</competition></h3>
+
+{% if voteOpen == False %}
+
+<h3 class="sub-text text-center">Submission Deadline: {{ competition.endDate }}</competitoin></h3>
 
 {% if user.is_authenticated %}
     {% if not user.is_staff %}
-        <h3 class="sub-text text-center">Ready for submission? Submit Below!</competition></h3>
-    {% endif %}
+<h3 class="sub-text text-center">Ready for submission? Submit Below!</competitoin></h3>
+  {% endif %}
+{% endif %}
 {% endif %}
 
 {% if user.is_authenticated %}
-    {% if not user.is_staff %}
+  {% if not user.is_staff %}
+    {% if voteOpen == False %}
     <div class="text-center submit-form">
         <form method="POST" enctype="multipart/form-data">  
             {% csrf_token %}
@@ -41,10 +46,11 @@
             </table>
             <input type="submit" class="btn btn-outline-dark btn-lg" name="register">            
     </div>
-    {% else %}
+    {% endif %}
+ {% else %}
     <h2 class="sub-text text-center" style="color:red;"> You're not a designer! You can't participate in competitions!</h2> 
     <br>
-    {% endif %}
+ {% endif %}
 {% else %}
     <div class="text-center sub-text-comp">
         <h1 class="sub-text">You need to sign Up to Participate!</h1> 
@@ -52,10 +58,18 @@
         <br><br><br><br><br><br>
     </div>
    
+
 {% endif %}
+
+{% if voteOpen == False %}
 
 <h1 class="sub-text text-center">Not Done Yet?? GET YOUR COFFEE AND START DESIGNING!</h1> 
 
+{% else %}
+
+<h1 class="sub-text text-center">Submissions are closed.... BUT VOTES ARE OPEN! GRAB A COFFEE AND ENJOY THE SUBMISSIONS!</h1> 
+
+{% endif %}
 <div>
     <div class="container-1">
         <div class="coffee-header">
@@ -78,6 +92,7 @@
       </div>    
 </div>
 
+{% if voteOpen == True %}
 
 <div class="heading heading-vote">
 		
@@ -106,6 +121,7 @@
         </div>
         {% endfor %}
 
+{% endif %}
 <script src="/static/sub.js"></script>
 
 {% endblock %}
