@@ -1,24 +1,16 @@
 function myFunction1() {
   var x = document.getElementById("myDIV");
   if (x.innerHTML === "Click to know the winner of the Lucky Draw!") {
-    x.innerHTML = "Freddie May!";
+    x.innerHTML = "User444";
   } else {
-    x.innerHTML = "Freddie May!";
+    x.innerHTML = "User444s";
   }
 }
 function myFunction2() {
   var x = document.getElementById("myDIV2");
-  if (x.innerHTML === "Click to know the winner of the Lucky Draw!") {
-    x.innerHTML = "John McCartney!";
+  if (x.innerHTML === "Click to know the winner of the Draw!") {
+    x.innerHTML = "Simon1212";
   } else {
-    x.innerHTML = "John McCartney!";
-  }
-}
-function myFunction3() {
-  var x = document.getElementById("myDIV3");
-  if (x.innerHTML === "Click to know the winner of the Lucky Draw!") {
-    x.innerHTML = "Barry Gibson!";
-  } else {
-    x.innerHTML = "Barry Gibson!";
+    x.innerHTML = "Simon1212";
   }
 }
