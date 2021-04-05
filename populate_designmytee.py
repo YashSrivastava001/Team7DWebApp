@@ -4,7 +4,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE',
 
 import django
 django.setup()
-from designmytee.models import Designer, Submission, Competition, Support_Request
+from designmytee.models import Designer, Submission, Competition, Support_Request, ItemVideo
 from django.contrib.auth.models import User
 
 def populate():
@@ -239,7 +239,9 @@ def populate():
          'contactEmail': 'LookingForMouse@testmail.com',
          'suggestionsOrFeedback' : 'I would like to recieve more clarity on whats happening to my data'},
         ]
-    
+    Videos = [
+        {"video": "https://youtu.be/FuraQCCsKgE"}
+        ]
     for Des in python_Designers:
         add_Designer( Des.get('username'), Des.get('first_name'), Des.get('last_name'), Des.get('password'), Des.get('email'), Des.get('picture'), Des.get('participations'), Des.get('wins'))
         
@@ -254,6 +256,9 @@ def populate():
     
     for Fed in Feedback_Submissions:
         add_Feedback(Fed.get('firstName'), Fed.get('lastName'), Fed.get('contactNumber'), Fed.get('contactEmail'), Fed.get('suggestionsOrFeedback'))
+        
+    for Vid in Videos:
+        add_videos(Vid.get('video'))
         
 def add_Designer(name, firstName, lastName, password, email, picture=None, participations=0, wins=0):
     if wins == None:
@@ -301,6 +306,10 @@ def add_Feedback(firstName, lastName, contactNumber, contactEmail, suggestionsOr
     f = Support_Request.objects.get_or_create(firstName=firstName, lastName=lastName, contactNumber=contactNumber, contactEmail=contactEmail, suggestionsOrFeedback=suggestionsOrFeedback)
     return f
     
+def add_videos(video):
+    v = ItemVideo.objects.get_or_create(video=video)
+    return v
+
 if __name__ == '__main__':
     print('Starting designmytee population script... this may take a second or two...')
     populate()

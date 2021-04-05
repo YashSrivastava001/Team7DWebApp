@@ -1,5 +1,6 @@
 from django.contrib import admin
-from designmytee.models import Designer, Submission, Competition, Support_Request
+from designmytee.models import Designer, Submission, Competition, Support_Request, ItemVideo
+from embed_video.admin import AdminVideoMixin
 
 # Register your models here.
 
@@ -20,8 +21,12 @@ class CompetitionAdmin(admin.ModelAdmin):
     
 class FeedbackAdmin(admin.ModelAdmin):
     list_display = ('firstName', 'lastName', 'contactNumber', 'contactEmail', 'suggestionsOrFeedback')
+    
+class VideoAdmin(AdminVideoMixin, admin.ModelAdmin):
+    pass
 
 admin.site.register(Designer, DesignerAdmin)
 admin.site.register(Submission, SubmissionAdmin)
 admin.site.register(Competition, CompetitionAdmin)
 admin.site.register(Support_Request, FeedbackAdmin)
+admin.site.register(ItemVideo, VideoAdmin)

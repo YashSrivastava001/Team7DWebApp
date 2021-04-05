@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from designmytee.models import Competition, Designer, Submission
+from designmytee.models import Competition, Designer, Submission, ItemVideo
 from django.template import RequestContext
 from designmytee.forms import CustomSignupForm, FeedbackForm, SubmissionForm
 from django.shortcuts import redirect
@@ -24,7 +24,12 @@ def home(request):
     return render(request, 'designmytee/home.html', context = context_dict)
 
 def about(request):
-     return render(request, 'designmytee/about.html')
+    context_dict = {}
+    videos = ItemVideo.objects.all()
+    for video in videos:
+        print("test")
+    context_dict["item_video"] = videos
+    return render(request, 'designmytee/about.html', context = context_dict)
  
 def help(request):
     form = FeedbackForm()
