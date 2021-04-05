@@ -9,10 +9,9 @@ class CustomSignupForm(SignupForm):
     wins = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     participations = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     
-    
     class Meta:
         model = Designer
-        
+
     def save(self, request):  
         user = super(CustomSignupForm, self).save(request)
         user.first_name = self.cleaned_data['first_name']
@@ -82,7 +81,7 @@ class FeedbackForm(forms.ModelForm):
 
 class SubmissionForm(forms.ModelForm):
     designImage = forms.ImageField()
-    submissionDescription = forms.CharField(max_length=Submission.DESCRIPTION_MAX_LENGTH,)
+    submissionDescription = forms.CharField(max_length=Submission.DESCRIPTION_MAX_LENGTH, help_text="Submission Description")
     votes = forms.IntegerField(widget=forms.HiddenInput(), initial=0, required=False)
     winner = forms.BooleanField(widget=forms.HiddenInput(), initial=False, required=False) 
 
@@ -91,3 +90,12 @@ class SubmissionForm(forms.ModelForm):
         model = Submission
         fields = ('designImage','submissionDescription', 'competition', 'participant')
         widgets = {'competition': forms.HiddenInput(), 'participant': forms.HiddenInput()}
+
+
+class UploadProfilePicForm(forms.ModelForm):
+    picture = forms.ImageField()
+
+    class Meta:
+        # Provide an association between the ModelForm and a model
+        model = Designer
+        fields = ('picture',)

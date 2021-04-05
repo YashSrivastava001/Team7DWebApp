@@ -4,7 +4,7 @@ from django.views.generic import View
 from django. contrib import messages
 from designmytee.models import Competition, Designer, Submission, ItemVideo, Vote
 from django.template import RequestContext
-from designmytee.forms import CustomSignupForm, FeedbackForm, SubmissionForm
+from designmytee.forms import CustomSignupForm, FeedbackForm, SubmissionForm, UploadProfilePicForm
 from django.shortcuts import redirect
 from django.contrib.auth import get_user
 from django.shortcuts import get_object_or_404
@@ -60,9 +60,22 @@ def help(request):
 def myprofile(request):
     context_dict = {}
     # The designer profile to show is filtered out in the HTML
-    
+
     designers_list = Designer.objects.all()
-    context_dict['designers'] = designers_list
+
+    try:
+        designer = Designer.objects.get(user=request.user)
+        context_dict['designer'] = designer
+        form = UploadProfilePicForm(instance = designer)
+        context_dict['form'] = form
+
+        if request.method == 'POST':
+            form = UploadProfilePicForm(request.POST, request.FILES, instance=designer)
+            if form.is_valid():
+                form.save()
+    except Designer.DoesNotExist:
+        context_dict['designer'] = None
+
     return render(request, 'designmytee/myprofile.html', context=context_dict)
 
 def results(request):
