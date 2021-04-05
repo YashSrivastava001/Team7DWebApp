@@ -8,7 +8,7 @@ class DesignerAdmin(admin.ModelAdmin):
     
     
 class SubmissionAdmin(admin.ModelAdmin):
-    list_display = ('participant', 'id', 'submissionDescription', 'votes')
+    list_display = ('competition', 'participant', 'id', 'submissionDescription', 'votes')
     
 class CompetitionAdmin(admin.ModelAdmin):
 

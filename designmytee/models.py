@@ -1,6 +1,7 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
+from random import random, seed
 
 class Designer(models.Model):
     
@@ -21,15 +22,19 @@ class Competition(models.Model):
     competitionImage = models.ImageField(upload_to='competition_images/', blank=True) # optional field
     startDate = models.DateField()
     endDate = models.DateField()
+    luckyDrawWinner = models.ForeignKey(User, on_delete=models.CASCADE, unique=False, null=True, blank=True)
     
     expiryDate = models.DateField(default=None)
-    competitionWinner = models.OneToOneField('Submission', related_name="competition_Winner", on_delete=models.CASCADE, default=None, unique=False, null=True) # Submission is in quotes as it is not defined yet
+    competitionWinner = models.OneToOneField("Submission", related_name="competition_Winner", on_delete=models.CASCADE, default=None, unique=False, null=True) # Submission is in quotes as it is not defined yet
 
     
     slug = models.SlugField(unique=True, default=None)
+    
+        
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
         super(Competition, self).save(*args, **kwargs)
+    
 
     class Meta:
         verbose_name_plural = 'competitions'
@@ -45,19 +50,19 @@ class Competition(models.Model):
     
     def test_length(self, size, fieldToTest):
         return(len(fieldToTest) <= size)
-    
+
 class Submission(models.Model):
     DESCRIPTION_MAX_LENGTH = 200
-    
-    designImage = models.ImageField(upload_to='Submission_images/')
+    designImage = models.ImageField(upload_to='Submission_images/', null=True, blank=True)
     submissionDescription = models.CharField(max_length=DESCRIPTION_MAX_LENGTH, default=None)
     votes = models.IntegerField(default=0)
     winner = models.BooleanField(default=False) 
-    participant = models.ForeignKey(Designer, on_delete=models.CASCADE, unique=False)
-    competition = models.ForeignKey(Competition, on_delete=models.CASCADE, default=None, unique=False) 
+    participant = models.ForeignKey(User, on_delete=models.CASCADE, unique=False, null=True, blank=True)
+    competition = models.ForeignKey(Competition, on_delete=models.CASCADE, default=None, unique=False, null=True, blank=True) 
     
     def test_length(self, size, fieldToTest):
         return(len(fieldToTest) <= size)
+    
 
 class Support_Request(models.Model):
     NAME_MAX_LENGTH = 128

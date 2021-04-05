@@ -23,22 +23,28 @@
 </div>
 <hr class="new5">
 
+{% if voteOpen == False %}
+
 <h3 class="sub-text text-center">Submission Deadline: {{ competition.endDate }}</competitoin></h3>
 
 <h3 class="sub-text text-center">Ready for submission? Submit Below!</competitoin></h3>
 
+{% endif %}
 
 {% if user.is_authenticated %}
-    <div>
-        <form id="{{ competition.title }}" class= 'required' method="post">
-            <input type="file" id="submission-file" hidden="hidden" />
-            <div class="text-center">
-                <button type="button" id="custom-button">CHOOSE A FILE</button>
-            <span id="custom-text">No file chosen, yet.</span>
-            <input type="submit" name="submit" value="Submit" />
-            </div> 
-        </form> 
+{% if voteOpen == False %}
+    <div class="text-center submit-form">
+
+        <form method="POST" enctype="multipart/form-data">
+            
+            {% csrf_token %}
+            <table>
+                {{ form.as_p }}
+            </table>
+            <input type="submit" class="btn btn-outline-dark btn-lg" name="register">
+            
     </div>
+{% endif %}
 {% else %}
     <div class="text-center sub-text-comp">
         <h1 class="sub-text">You need to sign Up to Participate!</h1> 
@@ -46,10 +52,18 @@
         <br><br><br><br><br><br>
     </div>
    
+
 {% endif %}
+
+{% if voteOpen == False %}
 
 <h1 class="sub-text text-center">Not Done Yet?? GET YOUR COFFEE AND START DESIGNING!</h1> 
 
+{% else %}
+
+<h1 class="sub-text text-center">Submissions are closed.... BUT VOTES ARE OPEN! GRAB A COFFEE AND ENJOY THE SUBMISSIONS!</h1> 
+
+{% endif %}
 <div>
     <div class="container-1">
         <div class="coffee-header">
@@ -72,6 +86,7 @@
       </div>    
 </div>
 
+{% if voteOpen == True %}
 
 <div class="heading heading-vote">
 		
@@ -87,7 +102,7 @@
             <div class="card">
                 <div class="card-body">
                 	<img class="card-img-top" src="{{ MEDIA_URL }}{{ submission.designImage }}" alt="Competition Image">
-                    <h5 class="card-title">Submission by {{ submission.participant.user.username }}</h5>
+                    <h5 class="card-title">Submission by {{ submission.participant }}</h5>
                     <h6 class="card-subtitle mb-2 text-muted">Votes: {{ submission.votes }}</h6>
                     <p class="card-text">{{ submission.submissionDescription }}</p>
                     {% if user.is_authenticated %}
@@ -100,6 +115,7 @@
         </div>
         {% endfor %}
 
+{% endif %}
 <script src="/static/sub.js"></script>
 
 {% endblock %}
