@@ -1,4 +1,8 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> b5349afacf7e4f2512a74a1da30de7536089ed8f
 import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE',
                       'Team7DWebApp.settings')
@@ -170,7 +174,8 @@ def populate():
          'participant': 'timtom',
          'submissionDescription': 'The best Netflix series! cant wait for the next season!',
          'designImage': "submission_images/submission_2_6.png",
-         'competition': 2
+         'competition': 2,
+         
          },
         {'votes': 321,
          'participant': 'user444',
@@ -194,7 +199,8 @@ def populate():
          'participant': 'boom673',
          'submissionDescription': 'I visited here last year... it was amazing!',
          'designImage': "submission_images/submission_4_3.jpg",
-         'competition': 4
+         'competition': 4,
+         
          },
         {'votes': 421,
          'participant': 'John212',
@@ -315,6 +321,7 @@ if __name__ == '__main__':
     print('Starting designmytee population script... this may take a second or two...')
     populate()
     print('Population successful!')
+<<<<<<< HEAD
         
         
         
@@ -643,4 +650,8 @@ if __name__ == '__main__':
         
         
 >>>>>>> 18e5141108cc35595151c9a4c8cb99145ef1bd9b
+=======
+
+    
+>>>>>>> b5349afacf7e4f2512a74a1da30de7536089ed8f
         
