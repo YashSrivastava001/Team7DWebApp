@@ -1,5 +1,3 @@
-
-
 import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE',
                       'Team7DWebApp.settings')
@@ -9,7 +7,13 @@ django.setup()
 from designmytee.models import Designer, Submission, Competition, Support_Request, ItemVideo
 from django.contrib.auth.models import User
 
+# Below populate function is used to generate a series of database entries that can be used to populate the database of the web app.
+# It creates entries for all fields, including: Designer, Submission, Competition, SupportRequest and ItemVideo models
+# Note that the populate function is also used for generating entries for tests in tests.py
+
 def populate():
+    
+    # Below dictionaries store the information that will be passed into functions to generate sample data for the database
     
     python_Designers = [
         {'first_name': 'John',
@@ -246,6 +250,10 @@ def populate():
     Videos = [
         {"video": "https://youtu.be/FuraQCCsKgE"}
         ]
+    
+    # Below for loops iterate through each entry in the above dictionaries and use the various functions below to generate database entries for each
+    # item in dictionaries. The database
+    
     for Des in python_Designers:
         add_Designer( Des.get('username'), Des.get('first_name'), Des.get('last_name'), Des.get('password'), Des.get('email'), Des.get('picture'), Des.get('participations'), Des.get('wins'))
         
@@ -302,7 +310,7 @@ def add_Submission(participant, submissionDescription, designImage, competition,
     s.votes=votes
     
     if winner == True:
-        Competition.objects.filter(id=competition).update(competitionWinner=s)
+       Competition.objects.filter(id=competition).update(competitionWinner=s)
         
     return s
 

@@ -3,11 +3,8 @@ from django.http import HttpResponse
 from django.views.generic import View
 from django. contrib import messages
 from designmytee.models import Competition, Designer, Submission, ItemVideo, Vote
-from django.template import RequestContext
-from designmytee.forms import CustomSignupForm, FeedbackForm, SubmissionForm
+from designmytee.forms import FeedbackForm, SubmissionForm
 from django.shortcuts import redirect
-from django.contrib.auth import get_user
-from django.shortcuts import get_object_or_404
 from datetime import date
 import random
 
@@ -87,6 +84,9 @@ def results(request):
 
         if competition.competitionWinner == None:
             competition_submissions = Submission.objects.filter(competition=competition)
+            
+            # temp variables used to find the winner of the competition
+            
             max_votes = 0
             winningSub = competition_submissions[0]
             for submission in competition_submissions:
@@ -95,26 +95,46 @@ def results(request):
                     winningSub = submission
                     
             competition.competitionWinner = winningSub
+            
+            winningUser = winningSub.participant
+            
+            # gets the Designer instance from the winning user and increases the wins field by one, then saves
+            
+            winningUserDesigner = Designer.objects.get(user=winningUser)
+            
+            winningUserDesigner.wins = winningUserDesigner.wins + 1
+            
+            winningUserDesigner.save()
+            
+            # saves the new competition winner in the database
+            
             competition.save(update_fields=["competitionWinner"])
 
         
         winningDesigners.append(Designer.objects.get(user = competition.competitionWinner.participant))
+        
+        # Checks if a lucky draw winner for the competition is present, if not generates a new one by generating a random number between 1 and the number of users inclusive,
+        # then uses said number as an ID to choose the winner
 
         if competition.luckyDrawWinner == None:
             random_id = random.randint(1, len(all_designers))
             competition.luckyDrawWinner = Designer.objects.get(id=random_id).user
             
+            # saves the new lucky draw winner in the database
+            
             competition.save(update_fields=["luckyDrawWinner"])
             
+    # passes in the fields generated above into the context dictionary to display to the user        
 
     context_dict['closed_competitions'] = closed_competitions_list
 
     context_dict['winningDesigners'] = winningDesigners
-    print(context_dict['winningDesigners'])
 
     return render(request, 'designmytee/results.html', context = context_dict)
 
 def competitions(request):
+    
+    # dates uses to determine what competitions to show to the user
     
     end = date(2030, 12 , 12)
     start2 = date(2010, 12 , 12)
@@ -122,18 +142,22 @@ def competitions(request):
     
     context_dict = {}
     
-    # below query set filters out competition that have not started yet, and competitions that are in voting stage
+    # below query set filters the competitions to the ones that are in submission stage (competitons that are after the start date, but before the end date)
     
     participation_competitions = Competition.objects.filter(endDate__range=[start, end], startDate__range=[start2, start]).order_by('expiryDate')
     
-    # below query set filters out competitons that have not started yet, and competitions that are in submission stage
+    # below query set filters the competitions to the ones that are in voting stage (competitons that are after the start date, and after the end date but before the expiry date)
     
     voting_competitions = Competition.objects.filter(endDate__range=[start2, start], expiryDate__range=[start, end]).order_by('expiryDate')
 
     featured_competition = Competition.objects.filter(expiryDate__range=[start, end], startDate__range=[start2, start]).order_by('expiryDate')[:1]
     
+    # above lists of competitons passed into seperate entries of the context dictionary
+    
     context_dict['participation_competitions'] = participation_competitions
+    
     context_dict['featured_competition'] = featured_competition
+    
     context_dict['voting_competitions'] = voting_competitions
 
     return render(request, 'designmytee/competitions.html', context=context_dict)
@@ -144,9 +168,12 @@ def show_competition(request, competition_name_slug):
     context_dict = {}
 
     try:
+        
+        # gets a competition based on the competiton slug passed into view
     
         competition = Competition.objects.get(slug=competition_name_slug)
         context_dict['competition'] = competition
+        
         # sets the voteOpen boolean value to either true or false, as it is used to control what elements the user can see
         # (If true, then the user cannot submit and only vote, if False then the user can submit but not vote)
         
@@ -154,27 +181,46 @@ def show_competition(request, competition_name_slug):
             voteOpen = True
         elif competition.endDate >= date.today():
             voteOpen = False
-            
-        context_dict['voteOpen'] = voteOpen
+        
+        context_dict['voteOpen'] = voteOpen # VoteOpen value passed into context dictionary
+        
+        # submission list used to show submissions from the passed in competition to the user
+        
         submission_list = Submission.objects.filter(competition=competition)
         
         context_dict['submissions'] = submission_list
+        
+        # passes in form for the user to fill in for a submission to the competition
 
         form = SubmissionForm
         context_dict['form'] = form
+        
+        # if the user is wanting to submit a submission to the competition, checks the users entered the information into the form correctly and saves the
+        # users entry into the database
 
         if request.method == 'POST':
             form = SubmissionForm(request.POST , request.FILES)
             if form.is_valid():
                 participant = Designer.objects.get(user=request.user).user
                 noOfSubmissions = Submission.objects.filter(competition=competition, participant=participant).count()
+                
+                # gets the designer instance connected to the user and updates the participation counter by 1
+                
+                DesignerInstance = Designer.objects.get(user=participant)
+                
+                DesignerInstance.participations = DesignerInstance.participations + 1
+                DesignerInstance.save()
                 if (noOfSubmissions < 1):
                     instance = form.save(commit=False)
                     instance.competition = competition
                     instance.participant = participant
                     instance.save()
+                    
                     return redirect('/designmytee/')
                 else:
+                    
+                     # Once the users entry has been successfuly entered, redirect them to the competitions page
+                    
                     return redirect('/designmytee/competitions/')
             else:
                 print(form.errors)
@@ -189,15 +235,15 @@ def show_competition(request, competition_name_slug):
 
 def show_designer_profile(request, designer_slug):
     context_dict={}
-    print(designer_slug)
+    
+    # uses designer slug to select the designer profile to display to the user
+    
     try:
         designer = Designer.objects.get(slug=designer_slug)
         context_dict['designer'] = designer
 
     except Designer.DoesNotExist:
         context_dict['designer'] = None
-
-    print(context_dict)
 
     return render(request, 'designmytee/designerProfile.html', context=context_dict)
 
@@ -206,6 +252,9 @@ def show_designer_profile(request, designer_slug):
 
 class VoteSubmissionView(View):
     def get(self, request):
+        
+        # uses request to get the id of the submission
+        
         submission_id = request.GET['submission_id']
         try:
             submission = Submission.objects.get(id=int(submission_id))
@@ -218,6 +267,9 @@ class VoteSubmissionView(View):
 
         except ValueError:
             return HttpResponse(-1)
+        
+        # If the user has not already voted for this submission, add the vote, if they have already voted for this submission then
+        # show message to user saying they cannot vote for the same submission again
         
         user_voted = submission.voter.filter(user=request.user).exists()
         if not user_voted:
