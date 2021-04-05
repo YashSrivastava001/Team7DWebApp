@@ -1,3 +1,5 @@
+
+
 import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE',
                       'Team7DWebApp.settings')
@@ -316,8 +318,5 @@ if __name__ == '__main__':
     print('Starting designmytee population script... this may take a second or two...')
     populate()
     print('Population successful!')
-        
-        
-        
         
         

@@ -99,3 +99,4 @@ class UploadProfilePicForm(forms.ModelForm):
         # Provide an association between the ModelForm and a model
         model = Designer
         fields = ('picture',)
+

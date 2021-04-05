@@ -29,8 +29,6 @@ def home(request):
 def about(request):
     context_dict = {}
     videos = ItemVideo.objects.all()
-    for video in videos:
-        print("test")
     context_dict["item_video"] = videos
     return render(request, 'designmytee/about.html', context = context_dict)
  
@@ -99,6 +97,19 @@ def results(request):
         
         # Checks if the lucky draw winner for the competition has already been decided, if it has not then use a random number generator to
         # determine the winner
+
+        if competition.competitionWinner == None:
+            competition_submissions = Submission.objects.filter(competition=competition)
+            max_votes = 0
+            winningSub = competition_submissions[0]
+            for submission in competition_submissions:
+                if submission.votes > max_votes:
+                    max_votes = submission.votes
+                    winningSub = submission
+                    
+            competition.competitionWinner = winningSub
+            competition.save(update_fields=["competitionWinner"])
+
         
         winningDesigners.append(Designer.objects.get(user = competition.competitionWinner.participant))
 
@@ -124,11 +135,13 @@ def competitions(request):
     
     context_dict = {}
     
-    # below query set filters out competition that have not started yet, and competitions that have finished (closed for voting and submissions)
+    # below query set filters out competition that have not started yet, and competitions that are in voting stage
     
-    competitions_list = Competition.objects.filter(expiryDate__range=[start, end], startDate__range=[start2, start]).order_by('expiryDate')
     participation_competitions = Competition.objects.filter(endDate__range=[start, end], startDate__range=[start2, start]).order_by('expiryDate')
-    voting_competitions = Competition.objects.filter(endDate__range=[start2, start]).order_by('expiryDate')
+    
+    # below query set filters out competitons that have not started yet, and competitions that are in submission stage
+    
+    voting_competitions = Competition.objects.filter(endDate__range=[start2, start], expiryDate__range=[start, end]).order_by('expiryDate')
 
     featured_competition = Competition.objects.filter(expiryDate__range=[start, end], startDate__range=[start2, start]).order_by('expiryDate')[:1]
     
