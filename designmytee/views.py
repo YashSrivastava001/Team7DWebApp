@@ -84,11 +84,7 @@ def results(request):
         
         # Checks if the lucky draw winner for the competition has already been decided, if it has not then use a random number generator to
         # determine the winner
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 
->>>>>>> b5349afacf7e4f2512a74a1da30de7536089ed8f
         if competition.competitionWinner == None:
             competition_submissions = Submission.objects.filter(competition=competition)
             max_votes = 0
@@ -99,18 +95,11 @@ def results(request):
                     winningSub = submission
                     
             competition.competitionWinner = winningSub
-<<<<<<< HEAD
-=======
-        
-        winningDesigners.append(Designer.objects.get(user = competition.competitionWinner.participant))
-
->>>>>>> 18e5141108cc35595151c9a4c8cb99145ef1bd9b
-=======
+            competition.save(update_fields=["competitionWinner"])
 
         
         winningDesigners.append(Designer.objects.get(user = competition.competitionWinner.participant))
 
->>>>>>> b5349afacf7e4f2512a74a1da30de7536089ed8f
         if competition.luckyDrawWinner == None:
             random_id = random.randint(1, len(all_designers))
             competition.luckyDrawWinner = Designer.objects.get(id=random_id).user
