@@ -162,14 +162,15 @@ def populate():
          'participant': 'PaulJog',
          'submissionDescription': 'My favourite TV show! made the design myself....',
          'designImage': "submission_images/submission_2_5.jpg",
-         'competition': 2
+         'competition': 2,
+         'winner': True
          },
         {'votes': 22,
          'participant': 'timtom',
          'submissionDescription': 'The best Netflix series! cant wait for the next season!',
          'designImage': "submission_images/submission_2_6.png",
          'competition': 2,
-         'winner': True
+         
          },
         {'votes': 321,
          'participant': 'user444',
@@ -193,20 +194,21 @@ def populate():
          'participant': 'boom673',
          'submissionDescription': 'I visited here last year... it was amazing!',
          'designImage': "submission_images/submission_4_3.jpg",
-         'competition': 4
+         'competition': 4,
+         
          },
         {'votes': 421,
          'participant': 'John212',
          'submissionDescription': 'I love space! I have always dreamed of visiting the moon!',
          'designImage': "submission_images/submission_5_1.jpg",
-         'competition': 5
+         'competition': 5,
+         'winner': True
          },
         {'votes': 174,
          'participant': 'timtom',
          'submissionDescription': 'FOOD IN SPACE!!!!!!',
          'designImage': "submission_images/submission_5_6.jpg",
-         'competition': 5,
-         'winner': True
+         'competition': 5
          },
         {'votes': 7,
          'participant': 'Simon1212',
