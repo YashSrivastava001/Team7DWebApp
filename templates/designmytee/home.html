@@ -32,16 +32,16 @@
     		<div class="carousel-item">
       			<img src="{% static 'images/home-slide-4.jpg' %}" class="d-block w-100" alt="">
       			<div class="carousel-caption d-none d-md-block">
-			        <h1 class="carousel-text">Design T-shirts, Get Featured!</h1>
-			        <button type="button" class="btn btn-outline-light btn-lg">Participate</button>
+			        <h1 class="carousel-text">Design T-shirts, Get Featured!</h1>		    
+					<a href="{% url 'designmytee:competitions' %}" class="btn btn-outline-light btn-lg" role="button">Participate</a>
 			        
       			</div>
     		</div>
 		    <div class="carousel-item">
 		      	<img src="{% static 'images/help.jpg' %}" class="d-block w-100" alt="">
 		      	<div class="carousel-caption d-none d-md-block">
-			        <h2 class="carousel-text">Need assistance? Contact our amazing support staff!</h1>
-			        <button type="button" class="btn btn-outline-light btn-lg">Help</button>
+			        <h2 class="carousel-text">Need assistance or have feedback? Contact our amazing support staff!</h1>
+					<a href="{% url 'designmytee:help' %}" class="btn btn-outline-light btn-lg" role="button">Help</a>
 		      	</div>
 		    </div>
   		</div>
@@ -82,7 +82,7 @@
                     <h5 class="card-title">{{ competition.title }}</h5>
                     <h6 class="card-subtitle mb-2 text-muted">Deadline: {{competition.endDate }}</h6>
                     <p class="card-text">{{ competition.competitionDescription }}</p>
-                    <a href="/designmytee/competition/{{ competition.slug }}/" class="btn btn-outline-dark btn-lg">Participate</a>
+                    <a href="/designmytee/competition/{{ competition.slug }}/" class="btn btn-outline-dark btn-lg">Participate/ Vote</a>
                 </div>
             </div>
         </div>

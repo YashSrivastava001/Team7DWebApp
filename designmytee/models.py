@@ -2,6 +2,7 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 from random import random, seed
+from embed_video.fields import EmbedVideoField
 
 class Designer(models.Model):
     
@@ -77,3 +78,6 @@ class Support_Request(models.Model):
     
     def test_length(self, size, fieldToTest):
         return(len(fieldToTest) <= size)
+    
+class ItemVideo(models.Model):
+    video = EmbedVideoField()
