@@ -1,20 +1,21 @@
 {% extends 'designmytee/base.html' %}
-{% load staticfiles %} <!-- New line -->
+{% load staticfiles %}
+<!-- New line -->
 {% block title_block %}
-    {% if competition %}
-    {{ competition.title }}
-    {% endif %}
+{% if competition %}
+{{ competition.title }}
+{% endif %}
 {% endblock %}
 
 {% block body_block %}
 
 
 <div class="heading">
-		
+
     <h1 class="compHeading text-center">{{ competition.title }}</h1>
-    
+
 </div>
-    
+
 <h1 class="sub-text text-center sub-text-comp">{{ competition.competitionDescription }}</h1>
 
 
@@ -26,102 +27,118 @@
 
 {% if voteOpen == False %}
 
-<h3 class="sub-text text-center">Submission Deadline: {{ competition.endDate }}</competitoin></h3>
+<h3 class="sub-text text-center">Submission Deadline: {{ competition.endDate }}</competitoin>
+</h3>
 
 {% if user.is_authenticated %}
-    {% if not user.is_staff %}
-<h3 class="sub-text text-center">Ready for submission? Submit Below!</competitoin></h3>
-  {% endif %}
+{% if not user.is_staff %}
+<h3 class="sub-text text-center">Ready for submission? Submit Below!</competitoin>
+</h3>
+{% endif %}
 {% endif %}
 {% endif %}
 
 {% if user.is_authenticated %}
-  {% if not user.is_staff %}
-    {% if voteOpen == False %}
-    <div class="text-center submit-form">
-        <form method="POST" enctype="multipart/form-data">  
-            {% csrf_token %}
-            <table>
-                {{ form.as_p }}
-            </table>
-            <input type="submit" class="btn btn-outline-dark btn-lg" name="register">            
-    </div>
-    {% endif %}
- {% else %}
-    <h2 class="sub-text text-center" style="color:red;"> You're not a designer! You can't participate in competitions!</h2> 
-    <br>
- {% endif %}
+{% if not user.is_staff %}
+{% if voteOpen == False %}
+<div class="text-center submit-form">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+            {{ form.as_p }}
+        </table>
+        <input type="submit" class="btn btn-outline-dark btn-lg" name="register">
+</div>
+{% endif %}
 {% else %}
-    <div class="text-center sub-text-comp">
-        <h1 class="sub-text">You need to sign Up to Participate!</h1> 
-        <a href="{% url 'designmytee:account_login' %}" class="btn btn-outline-dark btn-lg" role="button">Sign In</a>
-        <br><br><br><br><br><br>
-    </div>
-   
+<h2 class="sub-text text-center" style="color:red;"> You're not a designer! You can't participate in competitions!</h2>
+<br>
+{% endif %}
+{% else %}
+<div class="text-center sub-text-comp">
+    <h1 class="sub-text">You need to sign Up to Participate!</h1>
+    <a href="{% url 'designmytee:account_login' %}" class="btn btn-outline-dark btn-lg" role="button">Sign In</a>
+    <br><br><br><br><br><br>
+</div>
+
 
 {% endif %}
 
 {% if voteOpen == False %}
 
-<h1 class="sub-text text-center">Not Done Yet?? GET YOUR COFFEE AND START DESIGNING!</h1> 
+<h1 class="sub-text text-center">Not Done Yet?? GET YOUR COFFEE AND START DESIGNING!</h1>
 
 {% else %}
 
-<h1 class="sub-text text-center">Submissions are closed.... BUT VOTES ARE OPEN! GRAB A COFFEE AND ENJOY THE SUBMISSIONS!</h1> 
+<h1 class="sub-text text-center">Submissions are closed.... BUT VOTES ARE OPEN! GRAB A COFFEE AND ENJOY THE SUBMISSIONS!
+</h1>
 
 {% endif %}
 <div>
     <div class="container-1">
         <div class="coffee-header">
-          <div class="coffee-header__buttons coffee-header__button-one"></div>
-          <div class="coffee-header__buttons coffee-header__button-two"></div>
-          <div class="coffee-header__display"></div>
-          <div class="coffee-header__details"></div>
+            <div class="coffee-header__buttons coffee-header__button-one"></div>
+            <div class="coffee-header__buttons coffee-header__button-two"></div>
+            <div class="coffee-header__display"></div>
+            <div class="coffee-header__details"></div>
         </div>
         <div class="coffee-medium">
-          <div class="coffe-medium__exit"></div>
-          <div class="coffee-medium__arm"></div>
-          <div class="coffee-medium__liquid"></div>
-          <div class="coffee-medium__smoke coffee-medium__smoke-one"></div>
-          <div class="coffee-medium__smoke coffee-medium__smoke-two"></div>
-          <div class="coffee-medium__smoke coffee-medium__smoke-three"></div>
-          <div class="coffee-medium__smoke coffee-medium__smoke-for"></div>
-          <div class="coffee-medium__cup"></div>
+            <div class="coffe-medium__exit"></div>
+            <div class="coffee-medium__arm"></div>
+            <div class="coffee-medium__liquid"></div>
+            <div class="coffee-medium__smoke coffee-medium__smoke-one"></div>
+            <div class="coffee-medium__smoke coffee-medium__smoke-two"></div>
+            <div class="coffee-medium__smoke coffee-medium__smoke-three"></div>
+            <div class="coffee-medium__smoke coffee-medium__smoke-for"></div>
+            <div class="coffee-medium__cup"></div>
         </div>
         <div class="coffee-footer"></div>
-      </div>    
+    </div>
 </div>
 
 {% if voteOpen == True %}
 
 <div class="heading heading-vote">
-		
+
     <h1 class="compHeading text-center">Vote!</h1>
-    
+
 </div>
 
 
 <div class="container mt-4">
     <div class="row">
-    	{% for submission in submissions %}
+        {% for submission in submissions %}
         <div class="col-auto mb-3">
             <div class="card">
                 <div class="card-body">
-                	<img class="card-img-top" src="{{ MEDIA_URL }}{{ submission.designImage }}" alt="Competition Image">
+                    <img class="card-img-top" src="{{ MEDIA_URL }}{{ submission.designImage }}" alt="Competition Image">
                     <h5 class="card-title">Submission by {{ submission.participant }}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Votes: {{ submission.votes }}</h6>
+                    <h6 class="card-subtitle mb-2 text-muted" class="vote_count{{submission.id}}">Votes: {{ submission.votes }}</h6>
                     <p class="card-text">{{ submission.submissionDescription }}</p>
                     {% if user.is_authenticated %}
-                    <button id="voteButton" onclick="allowVote()" class="btn btn-outline-dark btn-lg">Vote</button>
+                        <button data-submissionid="{{ submission.id }}"
+                        class="btn btn-outline-dark btn-lg voteButton">Vote</button>
+                        
                     {% else %}
-                    <a href="{% url 'designmytee:account_login' %}" class="card-subtitle mb-2 text-muted">Sign In to Vote </a>
+                    <a href="{% url 'designmytee:account_login' %}" class="card-subtitle mb-2 text-muted">Sign In to
+                        Vote </a>
                     {% endif %}
                 </div>
             </div>
         </div>
+        
+
         {% endfor %}
 
-{% endif %}
-<script src="/static/js/sub.js"></script>
+        {% endif %}
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-danger" role="alert">
+            {{ message }}
+          </div
+        
+        {% endfor %}
+        
+        {% endif %}
 
-{% endblock %}
+        {% endblock %}
