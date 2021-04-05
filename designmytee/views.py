@@ -79,19 +79,27 @@ def results(request):
     
     all_designers = Designer.objects.all()
     
+    context_dict = {} 
+    winningDesigners = []
+
     for competition in closed_competitions_list:
         
         # Checks if the lucky draw winner for the competition has already been decided, if it has not then use a random number generator to
         # determine the winner
         
+        winningDesigners.append(Designer.objects.get(user = competition.competitionWinner.participant))
+
         if competition.luckyDrawWinner == None:
             random_id = random.randint(1, len(all_designers))
             competition.luckyDrawWinner = Designer.objects.get(id=random_id).user
             
             competition.save(update_fields=["luckyDrawWinner"])
             
-    context_dict = {}
+
     context_dict['closed_competitions'] = closed_competitions_list
+
+    context_dict['winningDesigners'] = winningDesigners
+    print(context_dict['winningDesigners'])
 
     return render(request, 'designmytee/results.html', context = context_dict)
 
@@ -165,6 +173,20 @@ def show_competition(request, competition_name_slug):
 
     # Go render the response and return it to the client.
     return render(request, 'designmytee/competition.html', context=context_dict)
+
+def show_designer_profile(request, designer_slug):
+    context_dict={}
+    print(designer_slug)
+    try:
+        designer = Designer.objects.get(slug=designer_slug)
+        context_dict['designer'] = designer
+
+    except Designer.DoesNotExist:
+        context_dict['designer'] = None
+
+    print(context_dict)
+
+    return render(request, 'designmytee/designerProfile.html', context=context_dict)
 
 
 
