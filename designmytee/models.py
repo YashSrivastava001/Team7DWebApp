@@ -58,7 +58,7 @@ class Submission(models.Model):
     submissionDescription = models.CharField(max_length=DESCRIPTION_MAX_LENGTH, default=None)
     votes = models.IntegerField(default=0)
     winner = models.BooleanField(default=False) 
-    participant = models.ForeignKey(User, on_delete=models.CASCADE, unique=False, null=True, blank=True)
+    participant = models.ForeignKey(Designer, on_delete=models.CASCADE, unique=False, null=True, blank=True)
     competition = models.ForeignKey(Competition, on_delete=models.CASCADE, default=None, unique=False, null=True, blank=True) 
     
     def test_length(self, size, fieldToTest):
