@@ -1,6 +1,7 @@
 from django.test import TestCase
 from designmytee.models import  Designer, Submission, Competition, Support_Request 
 from populate_designmytee import populate
+from designmytee.forms import FeedbackForm, CustomSignupForm, SubmissionForm
 
 import os
 
@@ -17,6 +18,13 @@ class DesignerTests(TestCase):
     def test_user_connected_to_designer(self):
         for d in Designer.objects.all():
             self.assertTrue(d.user != None, "Error, Designer instance exists with no user, please check user: " + str(d.id))
+    
+    def test_user_instances_contain_correct_fields(self):
+        for d in Designer.objects.all():
+            self.assertTrue(d.user.first_name != None, "Error, Designer intances user has no firstname, check user: " + str(d.id))
+            self.assertTrue(d.user.last_name != None, "Error, Designer intances user has no lastname, check user: " + str(d.id))
+            self.assertTrue(d.user.username != None, "Error, Designer intances user has no username, check user: " + str(d.id))
+            self.assertTrue(d.user.password != None, "Error, Designer intances user has no password, check user: " + str(d.id))
             
     def test_category_image_directory_is_in_place(self):
         cwd = os.getcwd()
@@ -140,3 +148,70 @@ class FeedbackTests(TestCase):
             self.assertIs(f.test_length(fieldToTest=f.contactEmail, size=200), True, "Error, object contactEmail has an invalid size, object id: " + str(f.id))
             self.assertIs(f.test_length(fieldToTest=f.suggestionsOrFeedback, size=500), True, "Error, object suggestionsOrFeedback has an invalid size, object id: " + str(f.id))
             
+class FormTests(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        populate()
+        
+    # checks that feedback and submission form can correctly detect an invalid input
+    
+    def test_feedback_form_detects_wrong_contact_number(self):
+        form = FeedbackForm(data={'contactNumber': "08217482"})
+        self.assertEqual(form.errors['contactNumber'], ['Error, not a valid phone number, length must be 11 and in the form: "07124282832"'], "Error, feedback form does not correctly identify phone numbers of incorrect length")
+        form = FeedbackForm(data={'contactNumber': "8274h17f821"})
+        self.assertEqual(form.errors['contactNumber'], ['Error, please enter a number in the form: "07124282832" '], "Error, feedback form does not correctly identify non-number input for contact number")
+        
+    def test_feedback_form_help_text(self):
+        form = FeedbackForm()
+        self.assertEqual(form.fields['firstName'].help_text, "Please enter your first name:", "Error, feedback form help text for firstname is invalid")
+        self.assertEqual(form.fields['lastName'].help_text, "Please enter your last name:","Error, feedback form help text for lastname is invalid")
+        self.assertEqual(form.fields['contactNumber'].help_text, "Please enter your phone number:", "Error, feedback form help text for contactNumber is invalid")
+        self.assertEqual(form.fields['contactEmail'].help_text, "Please enter your email:", "Error, feedback form help text for contactEmail is invalid")
+        self.assertEqual(form.fields['suggestionsOrFeedback'].help_text, "Please enter your suggestion/query/feedback:", "Error, feedback form help text for suggestionsOrFeedback is invalid")
+        
+    def test_Signup_form_lable_text(self):
+        form = CustomSignupForm()
+        self.assertEqual(form.fields['first_name'].label, 'First Name', "Error, Sign up form label text for first_name is invalid")
+        self.assertEqual(form.fields['last_name'].label, 'Last Name', "Error, Sign up form label text for last_name is invalid")
+        
+class ViewTests(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        populate()
+        
+    def test__view_urls_at_correct_area(self):
+        response = self.client.get('/designmytee/about/')
+        self.assertEqual(response.status_code, 200, "Error, about response not at correct area")
+        
+        response = self.client.get('/designmytee/results/')
+        self.assertEqual(response.status_code, 200, "Error, results response not at correct area")
+        
+        response = self.client.get('/designmytee/')
+        self.assertEqual(response.status_code, 200, "Error, home response not at correct area")
+        
+        response = self.client.get('/designmytee/help/')
+        self.assertEqual(response.status_code, 200, "Error, help response not at correct area")
+        
+        response = self.client.get('/designmytee/myprofile/')
+        self.assertEqual(response.status_code, 200, "Error, myprofile response not at correct area")
+        
+        for competition in Competition.objects.all():
+            
+            response = self.client.get('/designmytee/competition/' + competition.slug + "/")
+            self.assertEqual(response.status_code, 200, "Error, competition response not at correct area")
+        
+        response = self.client.get('/designmytee/competitions/')
+        self.assertEqual(response.status_code, 200, "Error, competitions response not at correct area")
+        
+        response = self.client.get('/designmytee/login/')
+        self.assertEqual(response.status_code, 200, "Error, login response not at correct area")
+        
+        response = self.client.get('/designmytee/signup/')
+        self.assertEqual(response.status_code, 200, "Error, signup response not at correct area")
+        
+        response = self.client.get('/designmytee/password/reset/')
+        self.assertEqual(response.status_code, 200, "Error, password reset response not at correct area")
+        
+        
+        
+        

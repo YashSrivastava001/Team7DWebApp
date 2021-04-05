@@ -4,9 +4,8 @@
     Results	
 {% endblock %}
 {% block body_block %}
-			<header class="text-center col-12">
+			<header class="text-center col-15">
 				<div class="row">
-				<div class="container-2">
 				<h1> Results </h1>
 			</header>
 			<hr class="shadow">
@@ -18,25 +17,29 @@
   <br>
   <p> This competition was held from {{ competition.startDate }}, to {{ competition.endDate }}.
   <br>
-  Hover over the winning design below, to know the winner of the competition.  
+  Hover over the winning design below, to know the winner of the competition.
+  <br> The winner for the lucky draw for this competition is: {{ competition.luckyDrawWinner.username }}
   </p>
   </hr>
   <div class="content">
-    <a href="{% static 'images/nature.jpg' %}" target="_blank">
+    <a href="{{ MEDIA_URL }}{{ competition.competitionWinner.designImage }}" target="_blank">
       <div class="content-overlay"></div>
       <img class="content-image" src="{{ MEDIA_URL }}{{ competition.competitionWinner.designImage }}">
       <div class="content-details fadeIn-top">
-        <h3>{{ competition.competitionWinner.participant }}</h3>
+        <h3>The winner of the competition is <b><i>{{ competition.competitionWinner.participant }}</b></i></h3>
       </div>
     </a>
   </div>
 </div>
 <br>
-<!-- <p><button onclick="myFunction1()" class="button button2">Click to know the winner of the Lucky Draw! </button></p>
-<div id="myDIV">Many Congratulations To</div> -->
-<br>
 <hr>
 {% endfor %}
-<script src="{% static 'flip.js' %}"></script>
+<h3> <i><b>Winners Of The Lucky Draw</b></i></h3>
+<button onclick="myFunction1()" class="button button2">Click to know the winner of the Lucky Draw for the TV Shows Design Competition! </button>
+<div id="myDIV">Many Congratulations To</div>
+<br><button onclick="myFunction2()" class="button button2">Click to know the winner of the Lucky Draw for the Space Design Competition! </button>
+<div id="myDIV2">Many Congratulations To</div>
+<hr>
+<script src = "{%static 'flip.js' %}"></script>
 {% endblock %}
 	

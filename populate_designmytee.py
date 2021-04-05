@@ -4,7 +4,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE',
 
 import django
 django.setup()
-from designmytee.models import Designer, Submission, Competition, Support_Request
+from designmytee.models import Designer, Submission, Competition, Support_Request, ItemVideo
 from django.contrib.auth.models import User
 
 def populate():
@@ -95,7 +95,7 @@ def populate():
          'competitionImage': 'competition_images/competition_2.jpg',
          'title': "TV shows",
          'startDate': '2020-12-23',
-         'endDate': '2021-02-28',
+         'endDate': '2021-01-22',
          'expiryDate': '2021-03-30'
             },
         {
@@ -103,7 +103,7 @@ def populate():
          'competitionImage': 'competition_images/competition_3.jpg',
          'title': "video games",
          'startDate': '2021-02-27',
-         'endDate': '2021-05-13',
+         'endDate': '2021-04-3',
          'expiryDate': '2021-06-14'
             },
         {
@@ -112,7 +112,7 @@ def populate():
          'title': "Cities",
          'startDate': '2021-01-13',
          'endDate': '2021-04-01',
-         'expiryDate': '2021-05-01',
+         'expiryDate': '2021-05-01'
             },
         {
          'competitionDescription': 'Submit your favourite space themed design!',
@@ -120,7 +120,7 @@ def populate():
          'title': "Space",
          'startDate': '2020-11-03',
          'endDate': '2021-02-28',
-         'expiryDate': '2021-03-28'
+         'expiryDate': '2021-04-02'
             },
         {
          'competitionDescription': 'Submit your favourite country themed design!',
@@ -168,7 +168,8 @@ def populate():
          'participant': 'timtom',
          'submissionDescription': 'The best Netflix series! cant wait for the next season!',
          'designImage': "submission_images/submission_2_6.png",
-         'competition': 2
+         'competition': 2,
+         'winner': True
          },
         {'votes': 321,
          'participant': 'user444',
@@ -192,8 +193,7 @@ def populate():
          'participant': 'boom673',
          'submissionDescription': 'I visited here last year... it was amazing!',
          'designImage': "submission_images/submission_4_3.jpg",
-         'competition': 4,
-         'winner': True
+         'competition': 4
          },
         {'votes': 421,
          'participant': 'John212',
@@ -239,7 +239,9 @@ def populate():
          'contactEmail': 'LookingForMouse@testmail.com',
          'suggestionsOrFeedback' : 'I would like to recieve more clarity on whats happening to my data'},
         ]
-    
+    Videos = [
+        {"video": "https://youtu.be/FuraQCCsKgE"}
+        ]
     for Des in python_Designers:
         add_Designer( Des.get('username'), Des.get('first_name'), Des.get('last_name'), Des.get('password'), Des.get('email'), Des.get('picture'), Des.get('participations'), Des.get('wins'))
         
@@ -254,6 +256,9 @@ def populate():
     
     for Fed in Feedback_Submissions:
         add_Feedback(Fed.get('firstName'), Fed.get('lastName'), Fed.get('contactNumber'), Fed.get('contactEmail'), Fed.get('suggestionsOrFeedback'))
+        
+    for Vid in Videos:
+        add_videos(Vid.get('video'))
         
 def add_Designer(name, firstName, lastName, password, email, picture=None, participations=0, wins=0):
     if wins == None:
@@ -282,6 +287,8 @@ def add_Competition(competitionDescription, competitionImage, title, startDate, 
     return c
         
 def add_Submission(participant, submissionDescription, designImage, competition, votes=0, winner=False):
+    if winner == None:
+        winner = False
     if votes == None:
         votes = 0
     c = Competition.objects.get(id=competition)
@@ -299,6 +306,10 @@ def add_Feedback(firstName, lastName, contactNumber, contactEmail, suggestionsOr
     f = Support_Request.objects.get_or_create(firstName=firstName, lastName=lastName, contactNumber=contactNumber, contactEmail=contactEmail, suggestionsOrFeedback=suggestionsOrFeedback)
     return f
     
+def add_videos(video):
+    v = ItemVideo.objects.get_or_create(video=video)
+    return v
+
 if __name__ == '__main__':
     print('Starting designmytee population script... this may take a second or two...')
     populate()
