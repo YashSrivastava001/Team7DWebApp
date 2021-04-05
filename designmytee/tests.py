@@ -5,7 +5,9 @@ from designmytee.forms import FeedbackForm, CustomSignupForm, SubmissionForm
 
 import os
 
-# Create your tests here.
+# Various tests for the Models, forms and views, run "python manage.py test" to run all tests.
+# Populate function from populate_designmytee is frequently used to create test databases for each set of tests, this may cause the tests
+# to take longer as the populate function needs ~4 seconds to run each time
 
 class DesignerTests(TestCase):
     
