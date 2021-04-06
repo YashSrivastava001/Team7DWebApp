@@ -104,6 +104,7 @@ class SubmissionForm(forms.ModelForm):
         widgets = {'competition': forms.HiddenInput(), 'participant': forms.HiddenInput()}
 
 
+# Firm to upload the profile picture once the user is logged in!
 class UploadProfilePicForm(forms.ModelForm):
     picture = forms.ImageField()
 
