@@ -2,11 +2,6 @@ from django.contrib import admin
 from designmytee.models import Designer, Submission, Competition, Support_Request, ItemVideo
 from embed_video.admin import AdminVideoMixin
 
-#class UserAdmin(admin.ModelAdmin):
-#    list_display = ('get_username')
-
-#    def get_username(self, obj):
-#        return obj.user.username
 
 # Below admin classes are created to determine what aspects of the variouse models are shown in the django admin interface
 

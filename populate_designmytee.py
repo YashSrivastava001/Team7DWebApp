@@ -277,6 +277,8 @@ def add_Designer(name, firstName, lastName, password, email, picture=None, parti
         wins = 0
     if participations == None:
         wins = 0
+    if picture == None:
+        picture = 'profile_images/base.jpeg'
         
     
     u = User.objects.create(username=name,  email=email, first_name=firstName, last_name=lastName)

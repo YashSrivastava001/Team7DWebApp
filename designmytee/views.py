@@ -297,3 +297,4 @@ class VoteSubmissionView(View):
             messages.error(request, "You Have Already Voted For This Submission!!!")
             return redirect('/designmytee/')
         
+
