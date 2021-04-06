@@ -1,0 +1,26 @@
+To enable to google social login API, the following steps should be followed 
+after pulling from the github repo and getting the server to run!
+
+1. in the command line, create a superuser with the following command
+	"python manage.py createsuperuser"
+	Enter your username, email and pass
+
+2. In your browser go to 127.0.0.1:8000/admin
+
+3. Log in with the username and the password of the superuser
+
+4. Find sites, click on it. Find example.com, click on it and change the Domain name
+   and display to "127.0.0.1:8000"
+
+5. Navigate back to the home of admin, find Social applications under Social Accounts.
+
+6. Enter the following information, 
+	Provider = google
+	name = designmytee-auth
+	client id = 746896809103-no05jdl8r4jm3gaa57s7kvftd7a31s4u.apps.googleusercontent.com
+	Secret Key = NT4s3dILEmYd70PCiT1o58rO
+	
+	And then move 127.0.0.1:8000 to chosen sites and save!
+
+Head over to 127.0.0.1:800/accounts/login, and now you should be able to log in through google!
+VOILA!
