@@ -12,6 +12,7 @@ Results
 <br>
 <header class="text-center col-13">
   <div class="row">
+    <!-- Html to Closed competitions (results set) -->
     {% for competition in closed_competitions %}
     <h3 class="body1"><b><i>Competition Name: {{ competition.title }}</b></i></h3>
     <br>
@@ -20,19 +21,19 @@ Results
       Hover over the winning design below, to know the winner of the competition.
     </p>
     </hr>
-
+    <!-- Html to show winning design -->
     <div class="content">
-      <a href="{{ MEDIA_URL }}{{ competition.competitionWinner.designImage }}" target="_blank">
+      <a class="img-fluid" href="{{ MEDIA_URL }}{{ competition.competitionWinner.designImage }}" target="_blank">
         <div class="content-overlay"></div>
-        <img class="content-image" src="{{ MEDIA_URL }}{{ competition.competitionWinner.designImage }}">
+        <img class="content-image img-fluid" src="{{ MEDIA_URL }}{{ competition.competitionWinner.designImage }}">
         {% for designer in winningDesigners %}
           {% if competition.competitionWinner.participant == designer.user %}
             {% if designer.user == user  %}
-            <div class="content-details fadeIn-top">
+            <div class="content-details fadeIn-top img-fluid">
               <h3>The winner of the competition is <b><a href="/designmytee/myprofile/">{{ competition.competitionWinner.participant }}</b></i></h3>
             </div>
             {% else %}
-            <div class="content-details fadeIn-top">
+            <div class="content-details fadeIn-top img-fluid">
               <h3>The winner of the competition is <b><a href="/designmytee/designerProfile/{{ designer.slug }}/">{{ competition.competitionWinner.participant }}</b></i></h3>
             </div>
             {% endif %}
@@ -47,7 +48,7 @@ Results
   </div>
   <br>
   
-
+  <!-- Html to show the lucky draw winner (uses Ajax)-->
   <div id="myDIV">Many Congratulations To:</div>
   <button data-luckyWinner="{{ competition.luckyDrawWinner.username }}" class="button button2 luckyWin">Click to
     know the winner of the Lucky Draw for the {{ competition.title }} Competition! </button>

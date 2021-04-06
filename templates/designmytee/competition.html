@@ -24,13 +24,14 @@
 </div>
 <hr class="new5">
 
-
+<!-- Html Displaying Competitions open for submissions -->
 {% if voteOpen == False %}
 
 <h3 class="sub-text text-center">Submission Deadline: {{ competition.endDate }}</competitoin>
 </h3>
-
+<!-- Only auth user can submit, otherwise he will have to sign in! -->
 {% if user.is_authenticated %}
+<!-- Only Users who are desingers can submit, Hosts cannot -->
 {% if not user.is_staff %}
 <h3 class="sub-text text-center">Ready for submission? Submit Below!</competitoin>
 </h3>
@@ -38,6 +39,7 @@
 {% endif %}
 {% endif %}
 
+<!-- Form to submit the submission -->
 {% if user.is_authenticated %}
 {% if not user.is_staff %}
 {% if voteOpen == False %}
@@ -72,12 +74,13 @@
 
 <h1 class="sub-text text-center">Not Done Yet? GET YOUR COFFEE AND START DESIGNING!</h1>
 
-{% else %}
+{% else %} <!-- Open for voting -->
 
 <h1 class="sub-text text-center">Submissions are closed.... BUT VOTES ARE OPEN! GRAB A COFFEE AND ENJOY THE SUBMISSIONS!
 </h1>
 
 {% endif %}
+<!-- Html for coffee machine -->
 <div>
     <div class="container-1">
         <div class="coffee-header">
@@ -111,12 +114,14 @@
 
 <div class="container mt-4">
     <div class="row">
+        <!-- Html to show submission -->
         {% for submission in submissions %}
         <div class="col-auto mb-3">
             <div class="card">
                 <div class="card-body">
                     <img class="card-img-top" src="{{ MEDIA_URL }}{{ submission.designImage }}" alt="Competition Image">
                     <h5 class="card-title">Submission by {{ submission.participant }}</h5>
+                    <!-- Vote count with submissoin id to make it unique to eveery submission (Ajax Purposes) -->
                     <h6 class="card-subtitle mb-2 text-muted" class="vote_count{{submission.id}}">Votes: {{ submission.votes }}</h6>
                     <p class="card-text">{{ submission.submissionDescription }}</p>
                     {% if user.is_authenticated %}
@@ -138,6 +143,7 @@
         {% endfor %}
 
         {% endif %}
+        <!-- Html to show messages if already voted or cant vote etc -->
         {% if messages %}
         {% for message in messages %}
         <div class="alert alert-danger" role="alert">

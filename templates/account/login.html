@@ -22,11 +22,13 @@
   of your existing third party accounts. Or, <a href="{% url 'designmytee:account_signup' %}">sign up</a>
   for a {{ site_name }} account and sign in below:</p>
 
+ 
+                <a href="{% provider_login_url 'google' %}" class="btn btn btn-danger btn-lg btn-block" role="button" aria-pressed="true">Sign in with Google</a>
+                <p class="mt-5 mb-3 text-muted"></p>
+
   <div class="socialaccount_ballot">
 
-    <ul class="socialaccount_providers">
-      {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-    </ul>
+    
 
     <div class="login-or">{% trans 'or' %}</div>
 
