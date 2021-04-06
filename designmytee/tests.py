@@ -5,7 +5,9 @@ from designmytee.forms import FeedbackForm, CustomSignupForm, SubmissionForm
 
 import os
 
-# Create your tests here.
+# Various tests for the Models, forms and views, run "python manage.py test" to run all tests.
+# Populate function from populate_designmytee is frequently used to create test databases for each set of tests, this may cause the tests
+# to take longer as the populate function needs ~4 seconds to run each time
 
 class DesignerTests(TestCase):
     
@@ -192,13 +194,11 @@ class ViewTests(TestCase):
         response = self.client.get('/designmytee/help/')
         self.assertEqual(response.status_code, 200, "Error, help response not at correct area")
         
-        response = self.client.get('/designmytee/myprofile/')
-        self.assertEqual(response.status_code, 200, "Error, myprofile response not at correct area")
         
         for competition in Competition.objects.all():
             
-            response = self.client.get('/designmytee/competition/' + competition.slug + "/")
-            self.assertEqual(response.status_code, 200, "Error, competition response not at correct area")
+             response = self.client.get('/designmytee/competition/' + competition.slug + "/")
+             self.assertEqual(response.status_code, 200, "Error, competition response not at correct area")
         
         response = self.client.get('/designmytee/competitions/')
         self.assertEqual(response.status_code, 200, "Error, competitions response not at correct area")
