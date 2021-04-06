@@ -70,17 +70,17 @@
           <div class="col-sm-6 col-md-3 item">
             <h3>Competitions</h3>
             <ul>
-              <li><a href="#">Participate</a></li>
-              <li><a href="#">Vote</a></li>
-              <li><a href="#">Results</a></li>
+              <li><a href="{% url 'designmytee:competitions' %}">Participate</a></li>
+              <li><a href="{% url 'designmytee:competitions' %}">Vote</a></li>
+              <li><a href="{% url 'designmytee:results' %}">Results</a></li>
             </ul>
           </div>
           <div class="col-sm-6 col-md-3 item">
             <h3>Resources</h3>
             <ul>
-              <li><a href="#">Help</a></li>
-              <li><a href="#">Contact Us</a></li>
-              <li><a href="#">How To Design a T-shirt</a></li>
+              <li><a href="{% url 'designmytee:help' %}">Help</a></li>
+              <li><a href="{% url 'designmytee:about' %}">About</a></li>
+              <li><a href="{% url 'designmytee:about' %}" >How To Design a T-shirt</a></li>
             </ul>
           </div>
           <div class="col-md-6 item text">
@@ -91,7 +91,10 @@
         <p class="copyright">DesignMyTee © 2021</p>
       
         </br> </br></br></br>
-        <h1 class="text-center navbar-brand footer-logo">DesignMyTee</h1>
+        <div class="text-center">
+          <a class="navbar-brand footer-logo" href="{% url 'designmytee:home' %}">DesignMyTee</a>
+        </div>
+        
       </br></br></br>
     </footer>
   </div>
