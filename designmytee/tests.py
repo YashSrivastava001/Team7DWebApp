@@ -1,6 +1,6 @@
 from django.test import TestCase
 from designmytee.models import  Designer, Submission, Competition, Support_Request 
-from populate_designmytee import populate
+from population_script import populate
 from designmytee.forms import FeedbackForm, CustomSignupForm, SubmissionForm
 
 import os
