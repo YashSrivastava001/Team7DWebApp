@@ -70,7 +70,7 @@
 
 {% if voteOpen == False %}
 
-<h1 class="sub-text text-center">Not Done Yet?? GET YOUR COFFEE AND START DESIGNING!</h1>
+<h1 class="sub-text text-center">Not Done Yet? GET YOUR COFFEE AND START DESIGNING!</h1>
 
 {% else %}
 
@@ -120,9 +120,12 @@
                     <h6 class="card-subtitle mb-2 text-muted" class="vote_count{{submission.id}}">Votes: {{ submission.votes }}</h6>
                     <p class="card-text">{{ submission.submissionDescription }}</p>
                     {% if user.is_authenticated %}
+                        {% if not user.is_staff %}
                         <button data-submissionid="{{ submission.id }}"
                         class="btn btn-outline-dark btn-lg voteButton">Vote</button>
-                        
+                        {% else %}
+                        <h4 class="sub-text text-center" style="color:red;"> Hosts can't vote!</h4>
+                        {% endif %}
                     {% else %}
                     <a href="{% url 'designmytee:account_login' %}" class="card-subtitle mb-2 text-muted">Sign In to
                         Vote </a>
