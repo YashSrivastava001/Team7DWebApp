@@ -24,8 +24,6 @@ urlpatterns = [
         views.show_designer_profile, name='show_designer_profile'),
     path('vote_submission/', views.VoteSubmissionView.as_view(), name='vote_submission'),
     
-
-    
     
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

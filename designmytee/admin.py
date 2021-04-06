@@ -4,12 +4,6 @@ from embed_video.admin import AdminVideoMixin
 
 # Register your models here.
 
-#class UserAdmin(admin.ModelAdmin):
-#    list_display = ('get_username')
-
-#    def get_username(self, obj):
-#        return obj.user.username
-
 class DesignerAdmin(admin.ModelAdmin):
     list_display = ('user', 'id', 'participations')
     prepopulated_fields = {'slug':('user',)}
