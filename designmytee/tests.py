@@ -194,13 +194,11 @@ class ViewTests(TestCase):
         response = self.client.get('/designmytee/help/')
         self.assertEqual(response.status_code, 200, "Error, help response not at correct area")
         
-        response = self.client.get('/designmytee/myprofile/')
-        self.assertEqual(response.status_code, 200, "Error, myprofile response not at correct area")
         
         for competition in Competition.objects.all():
             
-            response = self.client.get('/designmytee/competition/' + competition.slug + "/")
-            self.assertEqual(response.status_code, 200, "Error, competition response not at correct area")
+             response = self.client.get('/designmytee/competition/' + competition.slug + "/")
+             self.assertEqual(response.status_code, 200, "Error, competition response not at correct area")
         
         response = self.client.get('/designmytee/competitions/')
         self.assertEqual(response.status_code, 200, "Error, competitions response not at correct area")
