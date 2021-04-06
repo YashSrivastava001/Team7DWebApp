@@ -87,8 +87,6 @@ def results(request):
     
     closed_competitions_list = Competition.objects.filter(expiryDate__range=[start, end]).order_by('endDate')
     
-    all_designers = Designer.objects.all()
-    
     context_dict = {} 
     winningDesigners = []
 
@@ -130,10 +128,17 @@ def results(request):
         
         # Checks if a lucky draw winner for the competition is present, if not generates a new one by generating a random number between 1 and the number of users inclusive,
         # then uses said number as an ID to choose the winner
-
+        DesignersToUse = Submission.objects.filter(competition=competition)
+        
         if competition.luckyDrawWinner == None:
-            random_id = random.randint(1, len(all_designers))
-            competition.luckyDrawWinner = Designer.objects.get(id=random_id).user
+            
+            # Generates random number between 0 and the length of all the submiting designers -1 to select a random user who participted in the competition
+            
+            randomnum = random.randint(0, len(DesignersToUse) - 1)
+            
+            
+            winner = DesignersToUse[randomnum].participant.id
+            competition.luckyDrawWinner = Designer.objects.get(id=winner).user
             
             # saves the new lucky draw winner in the database
             
